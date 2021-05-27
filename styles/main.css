@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #6a6a6a;
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  height: 600px;
+  width: 600px;
+}
+
+.grid div {
+  border: 1px solid lightgrey;
+  flex-grow: 1;
+  height: 4.75%;
+  width: 4.75%;
+  background-color: white;
+}
+
+.grid div.player {
+  background-image: url(https://media1.giphy.com/media/YR2FiiKTE8R734dcXu/giphy.gif);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.grid div.border {
+  background-color: blue;
+}
