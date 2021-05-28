@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -38,13 +40,13 @@ img {
 }
 
 .score p {
-  padding-top: 5px;
+  padding-bottom: 5px;
   margin: 0;
   text-align: center;
 }
 
 .score h6 {
-  padding-bottom: 5px;
+  padding-top: 5px;
   margin: 0;
   font-family: 'Comic Neue', cursive;
   font-weight: 900;
@@ -52,8 +54,8 @@ img {
 }
 
 .lives {
-  margin: 0 50px;
-  padding: 0 30px;
+  margin: 0 10px;
+  padding: 0;
   color: #72413b;
   border: 2px solid #f2d9c7;
   background-color: #f8a7b0;
@@ -61,6 +63,26 @@ img {
   font-family: 'Comic Neue', cursive;
   font-weight: 900;
   font-size: 1.2em;
+}
+
+.lives h6 {
+  padding-top: 5px;
+  margin: 0;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 900;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.lives-container {
+  width: 140px;
+  display: flex;
+  justify-content: center;
+}
+
+.lives-container img {
+  width: 30px;
+  height: 30px;
 }
 
 .grid {
@@ -86,6 +108,9 @@ img {
   background-color: #63b969;
 }
 
+.hidden {
+  display: none;
+}
 
 
 /* characters */

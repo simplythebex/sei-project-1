@@ -30,7 +30,10 @@ function init() {
   // fossil info
   const fossilClass = 'fossil'
   let lives = 2
-  const grabLives = document.querySelector('.lives p')
+  const grabLives = document.querySelectorAll('.life')
+  console.log(grabLives)
+
+  const hiddenClass = 'hidden'
 
   // results
   const result = document.querySelector('.display-result')
@@ -54,6 +57,8 @@ function init() {
         } else if (!cell.classList.contains(borderClass) && !cell.classList.contains(fossilClass)) {
           cell.classList.add(foodClass)
         }
+
+        grabLives[2].classList.add(hiddenClass)
       }
     }
     addPlayer(playerStartPosition)
@@ -81,6 +86,12 @@ function init() {
     cells[position].classList.remove(ghostClass)
   }
 
+  // eat fruit/fossil
+  function handleInteraction(playerCurrentPosition, lives) {
+    eatFruit(playerCurrentPosition)
+    getFossil(playerCurrentPosition, lives)
+  }
+
   // move the player
   function handleKeyDown(event) {
     const key = event.keyCode
@@ -94,39 +105,37 @@ function init() {
     // checks which key is pressed, whether there is a border in the direction of press, whether there is a ghost on new tile
     if (key === 38 && !cells[playerCurrentPosition - width].classList.contains(borderClass)) { // up
       playerCurrentPosition -= width
-      eatFruit(playerCurrentPosition)
-      getFossil(playerCurrentPosition)
+      handleInteraction(playerCurrentPosition, lives)
     } else if (key === 39 && (!cells[playerCurrentPosition + 1].classList.contains(borderClass) || playerCurrentPosition === 65)) { // right
       if (playerCurrentPosition === 65) {
         playerCurrentPosition = 55
-        eatFruit(playerCurrentPosition)
-        getFossil(playerCurrentPosition)
+        handleInteraction(playerCurrentPosition, lives)
       } else {
         playerCurrentPosition ++
-        eatFruit(playerCurrentPosition)
-        getFossil(playerCurrentPosition)
+        handleInteraction(playerCurrentPosition, lives)
       }
     } else if (key === 40 && !cells[playerCurrentPosition + width].classList.contains(borderClass)) { // down
       playerCurrentPosition += width
-      eatFruit(playerCurrentPosition)
-      getFossil(playerCurrentPosition)
+      handleInteraction(playerCurrentPosition, lives)
     } else if (key === 37 && (!cells[playerCurrentPosition - 1].classList.contains(borderClass) || playerCurrentPosition === 55)) {// left
       if (playerCurrentPosition === 55) {
         playerCurrentPosition = 65
-        eatFruit(playerCurrentPosition)
-        getFossil(playerCurrentPosition)
+        handleInteraction(playerCurrentPosition, lives)
       } else {
         playerCurrentPosition--
-        eatFruit(playerCurrentPosition)
-        getFossil(playerCurrentPosition)
+        handleInteraction(playerCurrentPosition, lives)
       }
     }
     // adds the player back in, checks for ghosts
     addPlayer(playerCurrentPosition)
+    console.log('lives ->', lives)
     if (cells[playerCurrentPosition].classList.contains(ghostClass)) {
       touchGhost(playerCurrentPosition)
       playerCurrentPosition = playerStartPosition
     } 
+
+    console.log('score ->', score)
+
   }
 
   // move the ghost
@@ -182,24 +191,40 @@ function init() {
   }
 
   // get fossil
-  function getFossil(playerCurrentPosition) {
+  function getFossil(playerCurrentPosition, lives) {
     if (cells[playerCurrentPosition].classList.contains(fossilClass)) {
       cells[playerCurrentPosition].classList.remove(fossilClass)
+      increaseLives(lives)
       lives++
-      updateLives(lives)
+      console.log('life classes after fossil ->', grabLives)
+      console.log('lives post fossil->', lives)
     }
   }
 
   // update lives
-  function updateLives(lives) {
-    grabLives.innerText = lives
+  function increaseLives(lives) {
+    if (lives === 1) {
+      grabLives[1].classList.remove(hiddenClass)
+    } else if (lives === 2) {
+      grabLives[2].classList.remove(hiddenClass)
+    }
+  }
+
+  function decreaseLives(lives) {
+    if (lives === 3) {
+      grabLives[2].classList.add(hiddenClass)
+    } else if (lives === 2) {
+      grabLives[1].classList.add(hiddenClass)
+    } else if (lives === 1) {
+      grabLives[0].classList.add(hiddenClass)
+    }
   }
 
   // caught by ghost
   function touchGhost(playerCurrentPosition) {
     removePlayer(playerCurrentPosition)
+    decreaseLives(lives)
     lives--
-    updateLives(lives)
     playerCurrentPosition = playerStartPosition
     addPlayer(playerStartPosition)
     gameOver(score, lives)
