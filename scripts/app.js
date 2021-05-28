@@ -25,12 +25,12 @@ function init() {
   // food info
   const foodClass = 'food'
   let score = 0
-  const grabScore = document.querySelector('.score span')
+  const grabScore = document.querySelector('.score p')
 
   // fossil info
   const fossilClass = 'fossil'
   let lives = 2
-  const grabLives = document.querySelector('.lives span')
+  const grabLives = document.querySelector('.lives p')
 
   // functions
 
@@ -38,7 +38,7 @@ function init() {
   function createGrid(playerStartPosition) {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
-      // cell.innerText = i
+      cell.innerText = i
       grid.appendChild(cell)
       cells.push(cell)
       // generate borders and map
@@ -48,14 +48,13 @@ function init() {
         } else if (i === 82) {
           cell.classList.add(fossilClass)
         } else if (!cell.classList.contains(borderClass) && !cell.classList.contains(fossilClass)) {
-          console.log(cell)
           cell.classList.add(foodClass)
         }
       }
     }
     addPlayer(playerStartPosition)
-    // addFirstGhost(ghostStartPosition)
-    // moveGhost()
+    addFirstGhost(ghostStartPosition)
+    moveGhost()
   }
 
   // add the player 
@@ -81,10 +80,14 @@ function init() {
   // move the player
   function handleKeyDown(event) {
     const key = event.keyCode
-    console.log('position before moving ->', playerCurrentPosition)
-    console.log(key)
     removePlayer(playerCurrentPosition)
 
+    // prevents scrolling
+    if (key === 38 || key === 40) {
+      event.preventDefault()
+    }
+
+    // checks which key is pressed, whether there is a border in the direction of press, whether there is a ghost on new tile
     if (key === 38 && !cells[playerCurrentPosition - width].classList.contains(borderClass)) { // up
       playerCurrentPosition -= width
       eatFruit(playerCurrentPosition)
@@ -114,16 +117,19 @@ function init() {
         getFossil(playerCurrentPosition)
       }
     }
-    console.log('position after moving ->', playerCurrentPosition)
+    // adds the player back in, checks for ghosts
     addPlayer(playerCurrentPosition)
+    if (cells[playerCurrentPosition].classList.contains(ghostClass)) {
+      touchGhost(playerCurrentPosition)
+      playerCurrentPosition = playerStartPosition
+    } 
   }
 
   // move the ghost
   function moveGhost() {
     const randomIndex = Math.floor(Math.random() * 4)
     removeFirstGhost(ghostCurrentPosition)
-    console.log(ghostCurrentPosition)
-    if (randomIndex === 0 && !cells[ghostCurrentPosition - width].classList.contains(borderClass)) {
+    if (randomIndex === 0 && !cells[ghostCurrentPosition - width].classList.contains(borderClass)) { //up
       ghostCurrentPosition -= width
     } else if (randomIndex === 1 && (!cells[ghostCurrentPosition + 1].classList.contains(borderClass) || ghostCurrentPosition === 65)) { // right
       if (ghostCurrentPosition === 65) {
@@ -140,13 +146,18 @@ function init() {
         ghostCurrentPosition--
       }
     } 
-    // addFirstGhost(ghostCurrentPosition)
+    // adds the ghost back in, checks for player
+    addFirstGhost(ghostCurrentPosition)
+    if (cells[ghostCurrentPosition].classList.contains(playerClass)) {
+      touchGhost(playerCurrentPosition)
+      playerCurrentPosition = playerStartPosition
+    }
   }
 
   // call move ghost
-  // const move = setInterval(() => {
-  //   moveGhost()
-  // }, 300)
+  const move = setInterval(() => {
+    moveGhost()
+  }, 300)
 
   // eat fruit
   function eatFruit(playerCurrentPosition) {
@@ -159,7 +170,11 @@ function init() {
 
   // update score
   function updateScore(score) {
-    grabScore.innerText = score
+    if (score < 10) {
+      grabScore.innerText = `0${score}`
+    } else {
+      grabScore.innerText = score
+    }
   }
 
   // get fossil
@@ -176,7 +191,19 @@ function init() {
     grabLives.innerText = lives
   }
 
+  // caught by ghost
+  function touchGhost(playerCurrentPosition) {
+    removePlayer(playerCurrentPosition)
+    lives--
+    updateLives(lives)
+    console.log('position pre ghost ->', playerCurrentPosition)
+    playerCurrentPosition = playerStartPosition
+    console.log('position after catch ->', playerCurrentPosition)
+    addPlayer(playerStartPosition)
+    console.log('position after add ->', playerCurrentPosition)
+  }
 
+  // makes the grid
   createGrid(playerStartPosition)
 
   // event listeners

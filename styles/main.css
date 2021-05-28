@@ -8,42 +8,65 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #6a6a6a;
+  background-color: #f3f3db;
 }
 
 .stats-box {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
   margin: 5px auto;
 }
 
-.title {
+img {
+  height: 100%;
+  width: 30%;
   margin: 5px;
-  padding: 10px;
-  border: 2px solid black;
-  color: white;
 }
 
 .score {
   margin: 0 50px;
-  padding: 0 20px;
-  color: white;
-  border: 2px solid black;
+  padding: 0 50px;
+  color: #72413b;
+  border: 2px solid #f2d9c7;
+  background-color: #f8a7b0;
+  border-radius: 30%;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 900;
+  font-size: 1.2em;
+}
+
+.score p {
+  padding-top: 5px;
+  margin: 0;
+  text-align: center;
+}
+
+.score h6 {
+  padding-bottom: 5px;
+  margin: 0;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 900;
+  font-size: 1.2em;
 }
 
 .lives {
   margin: 0 50px;
-  padding: 0 20px;
-  color: white;
-  border: 2px solid black;
+  padding: 0 30px;
+  color: #72413b;
+  border: 2px solid #f2d9c7;
+  background-color: #f8a7b0;
+  border-radius: 30%;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 900;
+  font-size: 1.2em;
 }
 
 .grid {
   display: flex;
   align-items: center;
-  /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); */
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
   flex-wrap: wrap;
   height: 100%;
   justify-content: center;
@@ -56,7 +79,7 @@ body {
 }
 
 .grid div {
-  /* border: 1px solid lightgrey; */
+  border: 1px solid lightgrey;
   flex-grow: 1;
   height: 9%;
   width: 9%;
