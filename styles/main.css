@@ -66,7 +66,7 @@ img {
 .grid {
   display: flex;
   align-items: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); */
   flex-wrap: wrap;
   height: 100%;
   justify-content: center;
@@ -79,12 +79,16 @@ img {
 }
 
 .grid div {
-  border: 1px solid lightgrey;
+  /* border: 1px solid lightgrey; */
   flex-grow: 1;
   height: 9%;
   width: 9%;
   background-color: #63b969;
 }
+
+
+
+/* characters */
 
 .grid div.player {
   background-image: url(https://media2.giphy.com/media/cMKU6Dan3r3wzGOuW5/giphy.gif?cid=6c09b952q03gb3xhkua9cn8doqksaf4qgbcamz2wux9wwlil&rid=giphy.gif&ct=s);

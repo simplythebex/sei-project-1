@@ -32,13 +32,17 @@ function init() {
   let lives = 2
   const grabLives = document.querySelector('.lives p')
 
+  // results
+  const result = document.querySelector('.display-result')
+  console.log(result)
+
   // functions
 
   // create the grid
   function createGrid(playerStartPosition) {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
-      cell.innerText = i
+      // cell.innerText = i
       grid.appendChild(cell)
       cells.push(cell)
       // generate borders and map
@@ -196,11 +200,21 @@ function init() {
     removePlayer(playerCurrentPosition)
     lives--
     updateLives(lives)
-    console.log('position pre ghost ->', playerCurrentPosition)
     playerCurrentPosition = playerStartPosition
-    console.log('position after catch ->', playerCurrentPosition)
     addPlayer(playerStartPosition)
-    console.log('position after add ->', playerCurrentPosition)
+    gameOver(score, lives)
+  }
+
+  // game over
+  function gameOver(score, lives) {
+    if (lives === 0) {
+      clearInterval(move)
+      for (let i = 0; i < cellCount; i++) {
+        cells[i].classList.remove(playerClass)
+      }
+      result.classList.remove('hidden')
+      result.innerText = `You were caught too many times! Game Over! Your score: ${score}`
+    }
   }
 
   // makes the grid
