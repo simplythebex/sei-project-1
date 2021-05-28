@@ -11,10 +11,39 @@ body {
   background-color: #6a6a6a;
 }
 
+.stats-box {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 10px;
+  margin: 5px auto;
+}
+
+.title {
+  margin: 5px;
+  padding: 10px;
+  border: 2px solid black;
+  color: white;
+}
+
+.score {
+  margin: 0 50px;
+  padding: 0 20px;
+  color: white;
+  border: 2px solid black;
+}
+
+.lives {
+  margin: 0 50px;
+  padding: 0 20px;
+  color: white;
+  border: 2px solid black;
+}
+
 .grid {
   display: flex;
   align-items: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); */
   flex-wrap: wrap;
   height: 100%;
   justify-content: center;
@@ -22,20 +51,53 @@ body {
   width: 600px;
 }
 
+.grid-container {
+  background-color: #63b969;
+}
+
 .grid div {
-  border: 1px solid lightgrey;
+  /* border: 1px solid lightgrey; */
   flex-grow: 1;
-  height: 4.75%;
-  width: 4.75%;
-  background-color: white;
+  height: 9%;
+  width: 9%;
+  background-color: #63b969;
 }
 
 .grid div.player {
-  background-image: url(https://media1.giphy.com/media/YR2FiiKTE8R734dcXu/giphy.gif);
+  background-image: url(https://media2.giphy.com/media/cMKU6Dan3r3wzGOuW5/giphy.gif?cid=6c09b952q03gb3xhkua9cn8doqksaf4qgbcamz2wux9wwlil&rid=giphy.gif&ct=s);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.grid div.border {
+  background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/c/c7/NH-Tree.png/revision/latest/scale-to-width-down/1930?cb=20200415131758);
   background-repeat: no-repeat;
   background-size: contain;
 }
 
-.grid div.border {
-  background-color: blue;
+.grid div.ghost {
+  background-image: url(https://media0.giphy.com/media/kGpAWSFzHvr9XW9nAb/giphy.gif?cid=6c09b952udari2ogurfqa0nl8p8rquf4ugiaqt9vvbup8z1k&rid=giphy.gif&ct=s);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
+
+.food {
+  background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/8/84/NH-DIY-Furniture-Peach_surprise_box.png/revision/latest?cb=20200326043912);
+  background-repeat: no-repeat;
+  background-size: 40%;
+  background-position: center;
+}
+
+.fossil {
+  background-image: url(https://i0.wp.com/nookipedia.com/w/images/5/57/Fossil_NH_Inv_Icon.png?resize=650,400);
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: center;
+}
+
+
+
+
+
+/* gifs: */
+/* https://data.whicdn.com/images/243726220/original.gif */
