@@ -81,7 +81,7 @@ img {
 }
 
 .lives-container img {
-  width: 30px;
+  width: 40px;
   height: 30px;
 }
 
@@ -128,15 +128,15 @@ img {
 }
 
 .grid div.ghost {
-  background-image: url(https://media0.giphy.com/media/kGpAWSFzHvr9XW9nAb/giphy.gif?cid=6c09b952udari2ogurfqa0nl8p8rquf4ugiaqt9vvbup8z1k&rid=giphy.gif&ct=s);
+  background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/3/34/NH-Icon-scorpion.png/revision/latest?cb=20200401005429);
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 70%;
 }
 
 .food {
-  background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/8/84/NH-DIY-Furniture-Peach_surprise_box.png/revision/latest?cb=20200326043912);
+  background-image: url(https://media0.giphy.com/media/ftqucH6K7xo4DBlPRF/giphy.gif?cid=6c09b9529vs9x9zvq2oke4ubywuy3os18wn175n6uotn7z3y&rid=giphy.gif);
   background-repeat: no-repeat;
-  background-size: 40%;
+  background-size: 70%;
   background-position: center;
 }
 
@@ -153,3 +153,18 @@ img {
 
 /* gifs: */
 /* https://data.whicdn.com/images/243726220/original.gif */
+
+/* peach
+https://static.wikia.nocookie.net/animalcrossing/images/8/84/NH-DIY-Furniture-Peach_surprise_box.png/revision/latest?cb=20200326043912 */
+
+/* Tom Nook
+https://media0.giphy.com/media/kGpAWSFzHvr9XW9nAb/giphy.gif?cid=6c09b952udari2ogurfqa0nl8p8rquf4ugiaqt9vvbup8z1k&rid=giphy.gif&ct=s */
+
+/* star fragment
+https://media2.giphy.com/media/J6FWF9uv0qKbhvJicf/giphy.gif?cid=6c09b952lfuckp2rzuvx0ji0418m81pnf854x3rajvrr8w5b&rid=giphy.gif&ct=s */
+
+/* tarantula
+https://dodo.ac/np/images/thumb/b/bf/Tarantula_NH.png/200px-Tarantula_NH.png */
+
+/* net 
+https://www.models-resource.com/resources/big_icons/37/36699.png */
