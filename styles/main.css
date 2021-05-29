@@ -37,6 +37,8 @@ img {
   font-family: 'Comic Neue', cursive;
   font-weight: 900;
   font-size: 1.2em;
+  width: 160px;
+  height: 65px;
 }
 
 .score p {
@@ -54,8 +56,10 @@ img {
 }
 
 .lives {
-  margin: 0 10px;
+  margin: 0 50px;
   padding: 0;
+  width: 160px;
+  height: 65px;
   color: #72413b;
   border: 2px solid #f2d9c7;
   background-color: #f8a7b0;
@@ -65,19 +69,13 @@ img {
   font-size: 1.2em;
 }
 
-.lives h6 {
-  padding-top: 5px;
-  margin: 0;
-  font-family: 'Comic Neue', cursive;
-  font-weight: 900;
-  font-size: 1.2em;
-  text-align: center;
-}
-
 .lives-container {
+  margin-left: 10px;
   width: 140px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding-top: 10px;
 }
 
 .lives-container img {
