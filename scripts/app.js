@@ -172,9 +172,10 @@ function init() {
   function eatFruit(playerCurrentPosition) {
     if (cells[playerCurrentPosition].classList.contains(foodClass)) {
       cells[playerCurrentPosition].classList.remove(foodClass)
-      score++
+      score += 10
       updateScore(score)
-    }
+      console.log('fruits?', fruitCheck())
+    } 
   }
 
   // update score
@@ -225,6 +226,23 @@ function init() {
     playerCurrentPosition = playerStartPosition
     addPlayer(playerStartPosition)
     gameOver(score, lives)
+  }
+
+  // checks if game is won
+  let fruitCount = 0
+  function fruitCheck () {
+    fruitCount = 0
+    cells.forEach(cell => {
+      if (cell.classList.contains(foodClass)) {
+        console.log(cell)
+        fruitCount += 1
+      }
+    }) 
+    if (fruitCount === 0) {
+      clearInterval(move)
+      result.classList.remove('hidden')
+      result.innerText = `You win! Your score: ${score}`
+    }
   }
 
   // game over
