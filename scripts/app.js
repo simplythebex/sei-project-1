@@ -12,8 +12,8 @@ function init() {
 
   // first ghost info
   const ghostClass = 'ghost'
-  const ghostStartPosition = 65
-  let ghostCurrentPosition = 65
+  const ghostStartPosition = 38
+  let ghostCurrentPosition = 38
 
   // level
   const level = 'beginner'
@@ -35,6 +35,14 @@ function init() {
 
   const hiddenClass = 'hidden'
 
+  // player coordinates
+  let x = 1
+  let y = 1
+
+  // ghost coordinater
+  let a = 5
+  let b = 3
+
   // results
   const result = document.querySelector('.display-result')
   console.log(result)
@@ -45,7 +53,7 @@ function init() {
   function createGrid(playerStartPosition) {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
-      // cell.innerText = i
+      cell.innerText = i
       grid.appendChild(cell)
       cells.push(cell)
       // generate borders and map
@@ -63,7 +71,6 @@ function init() {
     }
     addPlayer(playerStartPosition)
     addFirstGhost(ghostStartPosition)
-    moveGhost()
   }
 
   // add the player 
@@ -132,39 +139,177 @@ function init() {
       touchGhost(playerCurrentPosition)
       playerCurrentPosition = playerStartPosition
     } 
+    setPlayerCoordinates()
   }
 
   // move the ghost
+  // function moveGhost() {
+  //   const randomIndex = Math.floor(Math.random() * 4)
+  //   removeFirstGhost(ghostCurrentPosition)
+  //   if (randomIndex === 0 && !cells[ghostCurrentPosition - width].classList.contains(borderClass)) { //up
+  //     ghostCurrentPosition -= width
+  //   } else if (randomIndex === 1 && (!cells[ghostCurrentPosition + 1].classList.contains(borderClass) || ghostCurrentPosition === 65)) { // right
+  //     if (ghostCurrentPosition === 65) {
+  //       ghostCurrentPosition = 55
+  //     } else {
+  //       ghostCurrentPosition ++
+  //     }
+  //   } else if (randomIndex === 2 && !cells[ghostCurrentPosition + width].classList.contains(borderClass)) { // down
+  //     ghostCurrentPosition += width
+  //   } else if (randomIndex === 3 && (!cells[ghostCurrentPosition - 1].classList.contains(borderClass) || ghostCurrentPosition === 55)) {// left
+  //     if (ghostCurrentPosition === 55) {
+  //       ghostCurrentPosition = 65
+  //     } else {
+  //       ghostCurrentPosition--
+  //     }
+  //   } 
+  //   // adds the ghost back in, checks for player
+  //   addFirstGhost(ghostCurrentPosition)
+  //   if (cells[ghostCurrentPosition].classList.contains(playerClass)) {
+  //     touchGhost(playerCurrentPosition)
+  //     playerCurrentPosition = playerStartPosition
+  //   }
+  // }
+
+  // coordinates
+  function setPlayerCoordinates () {
+    if (playerCurrentPosition > 11 && playerCurrentPosition <= 21) {
+      y = 1
+    } else if (playerCurrentPosition > 22 && playerCurrentPosition <= 32) {
+      y = 2
+    } else if (playerCurrentPosition > 33 && playerCurrentPosition <= 43) {
+      y = 3
+    } else if (playerCurrentPosition > 44 && playerCurrentPosition <= 54) {
+      y = 4
+    } else if (playerCurrentPosition >= 55 && playerCurrentPosition <= 65) {
+      y = 5
+    } else if (playerCurrentPosition > 66 && playerCurrentPosition <= 76) {
+      y = 6
+    } else if (playerCurrentPosition > 77 && playerCurrentPosition <= 87) {
+      y = 7
+    } else if (playerCurrentPosition > 88 && playerCurrentPosition <= 98) {
+      y = 8
+    } else if (playerCurrentPosition > 99 && playerCurrentPosition <= 109) {
+      y = 9
+    }
+    x = playerCurrentPosition % 11
+    console.log(x, y)
+  }
+
+  function setGhostCoordinates () {
+    if (ghostCurrentPosition > 11 && ghostCurrentPosition <= 21) {
+      b = 1
+    } else if (ghostCurrentPosition > 22 && ghostCurrentPosition <= 32) {
+      b = 2
+    } else if (ghostCurrentPosition > 33 && ghostCurrentPosition <= 43) {
+      b = 3
+    } else if (ghostCurrentPosition > 44 && ghostCurrentPosition <= 54) {
+      b = 4
+    } else if (ghostCurrentPosition >= 55 && ghostCurrentPosition <= 65) {
+      b = 5
+    } else if (ghostCurrentPosition > 66 && ghostCurrentPosition <= 76) {
+      b = 6
+    } else if (ghostCurrentPosition > 77 && ghostCurrentPosition <= 87) {
+      b = 7
+    } else if (ghostCurrentPosition > 88 && ghostCurrentPosition <= 98) {
+      b = 8
+    } else if (ghostCurrentPosition > 99 && ghostCurrentPosition <= 109) {
+      b = 9
+    }
+    a = ghostCurrentPosition % 11
+    console.log(a, b)
+  }
+
+  // move the ghost intellegently
   function moveGhost() {
-    const randomIndex = Math.floor(Math.random() * 4)
+    console.log('called move ghost')
+    console.log('player coordinater ->', x, y)
+    console.log('ghost coordinates ->', a, b)
+    // compare y and b
+    // if y > b:
     removeFirstGhost(ghostCurrentPosition)
-    if (randomIndex === 0 && !cells[ghostCurrentPosition - width].classList.contains(borderClass)) { //up
-      ghostCurrentPosition -= width
-    } else if (randomIndex === 1 && (!cells[ghostCurrentPosition + 1].classList.contains(borderClass) || ghostCurrentPosition === 65)) { // right
-      if (ghostCurrentPosition === 65) {
-        ghostCurrentPosition = 55
+    if (y > b) {
+      console.log('ghost higher than player')
+      if (!cells[ghostCurrentPosition + width].classList.contains(borderClass)) {
+        ghostCurrentPosition += width
+        console.log('moving down')
       } else {
-        ghostCurrentPosition ++
+        if (x > a) {
+          console.log('ghost left of player')
+          if (!cells[ghostCurrentPosition + 1].classList.contains(borderClass)) {
+            ghostCurrentPosition++ 
+            console.log('moving right')
+          } else if (x < a) {
+            console.log('ghost right of player')
+            ghostCurrentPosition--
+            console.log('moving left')
+          } else if (x === a) {
+            console.log('ghost on same vertical plane as player')
+          }
+        }
       }
-    } else if (randomIndex === 2 && !cells[ghostCurrentPosition + width].classList.contains(borderClass)) { // down
-      ghostCurrentPosition += width
-    } else if (randomIndex === 3 && (!cells[ghostCurrentPosition - 1].classList.contains(borderClass) || ghostCurrentPosition === 55)) {// left
-      if (ghostCurrentPosition === 55) {
-        ghostCurrentPosition = 65
+    } else if (y < b) {
+      console.log('ghost lower than player')
+      if (!cells[ghostCurrentPosition - width].classList.contains(borderClass)) {
+        ghostCurrentPosition -= width
+        console.log('moving up')
       } else {
-        ghostCurrentPosition--
+        if (x > a) {
+          console.log('ghost left of player')
+          if (!cells[ghostCurrentPosition + 1].classList.contains(borderClass)) {
+            ghostCurrentPosition++ 
+            console.log('moving right')
+          } else if (x < a) {
+            console.log('ghost right of player')
+            ghostCurrentPosition--
+            console.log('moving left')
+          } else if (x === a) {
+            console.log('ghost on same vertical plane as player')
+          }
+        }
       }
-    } 
-    // adds the ghost back in, checks for player
+    } else if (y === b) {
+      console.log('ghost on same horizontal plane as player')
+      if (x > a) {
+        console.log('ghost left of player')
+        if (!cells[ghostCurrentPosition + 1].classList.contains(borderClass)) {
+          ghostCurrentPosition++ 
+          console.log('moving right')
+        } else if (x < a) {
+          console.log('ghost right of player')
+          ghostCurrentPosition--
+          console.log('moving left')
+        } else if (x === a) [
+          console.log('ghost on same vertical plane as player')
+        ]
+      }
+    }
+    
+
     addFirstGhost(ghostCurrentPosition)
     if (cells[ghostCurrentPosition].classList.contains(playerClass)) {
       touchGhost(playerCurrentPosition)
       playerCurrentPosition = playerStartPosition
     }
+
+    //      check for border below
+    //      if no border below, move down
+    //      if border below, compare x and a
+    //      if x > a:
+    //            check border right
+    //            if no border right, move right
+    //            else move left
+
+
+    // if y < b ghost move up
+    setGhostCoordinates()
   }
+
+
 
   // call move ghost
   const move = setInterval(() => {
+    console.log('ready to move')
     moveGhost()
   }, 300)
 
@@ -198,7 +343,8 @@ function init() {
     }
   }
 
-  // update lives
+  // update life display:
+  // increases life display 
   function increaseLives(lives) {
     if (lives === 1) {
       grabLives[1].classList.remove(hiddenClass)
@@ -206,7 +352,7 @@ function init() {
       grabLives[2].classList.remove(hiddenClass)
     }
   }
-
+  // decreases life display
   function decreaseLives(lives) {
     if (lives === 3) {
       grabLives[2].classList.add(hiddenClass)
@@ -242,6 +388,7 @@ function init() {
       clearInterval(move)
       result.classList.remove('hidden')
       result.innerText = `You win! Your score: ${score}`
+      // grid.classList.add(hiddenClass)
     }
   }
 
@@ -254,6 +401,7 @@ function init() {
       }
       result.classList.remove('hidden')
       result.innerText = `You were caught too many times! Game Over! Your score: ${score}`
+      // grid.classList.add(hiddenClass)
     }
   }
 

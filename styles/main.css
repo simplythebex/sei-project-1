@@ -86,7 +86,7 @@ img {
 .grid {
   display: flex;
   align-items: center;
-  /* box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); */
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
   flex-wrap: wrap;
   height: 100%;
   justify-content: center;
@@ -99,11 +99,23 @@ img {
 }
 
 .grid div {
-  /* border: 1px solid lightgrey; */
+  border: 1px solid lightgrey;
   flex-grow: 1;
   height: 9%;
   width: 9%;
   background-color: #63b969;
+}
+
+.display-result {
+  width: 50%;
+  height: 10%;
+  text-align: center;
+  color: #72413b;
+  border: 2px solid #f2d9c7;
+  background-color: #f8a7b0;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 900;
+  font-size: 1.2em;
 }
 
 .hidden {
