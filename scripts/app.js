@@ -220,6 +220,63 @@ function init() {
     console.log(a, b)
   }
 
+  // moves ghost right
+  function moveGhostRight() {
+    ghostCurrentPosition++ 
+    console.log('moving right')
+  }
+
+  // move ghost left
+  function moveGhostLeft () {
+    ghostCurrentPosition--
+    console.log('moving left')
+  }
+
+  // moves ghost up
+  function moveGhostUp () {
+    ghostCurrentPosition -= width
+    console.log('moving up')
+  }
+
+  // moves ghost down
+  function moveGhostDown () {
+    ghostCurrentPosition += width
+    console.log('moving down')
+  }
+
+  // checks tile to right is clear
+  function isRightClear () {
+    if (!cells[ghostCurrentPosition + 1].classList.contains(borderClass)) {
+      console.log('right clear')
+      return true
+    }
+  }
+
+  // checks tile to left is clear
+  function isLeftClear () {
+    if (!cells[ghostCurrentPosition - 1].classList.contains(borderClass)) {
+      console.log('left clear')
+      return true
+    }
+  }
+
+  // check tile above is clear
+  function isUpClear () {
+    if (!cells[ghostCurrentPosition - width].classList.contains(borderClass)) {
+      console.log('up clear')
+      return true
+    }
+  }
+
+  // check tile below is clear
+  function isDownClear () {
+    if (!cells[ghostCurrentPosition + width].classList.contains(borderClass)) {
+      console.log('down clear')
+      return true
+    }
+  }
+
+
   // move the ghost intellegently
   function moveGhost() {
     console.log('called move ghost')
@@ -230,39 +287,64 @@ function init() {
     removeFirstGhost(ghostCurrentPosition)
     if (y > b) {
       console.log('ghost higher than player')
-      if (!cells[ghostCurrentPosition + width].classList.contains(borderClass)) {
-        ghostCurrentPosition += width
-        console.log('moving down')
+      if (isDownClear() === true) {
+        moveGhostDown()
       } else {
         if (x > a) {
           console.log('ghost left of player')
-          if (!cells[ghostCurrentPosition + 1].classList.contains(borderClass)) {
-            ghostCurrentPosition++ 
-            console.log('moving right')
-          } else if (x < a) {
-            console.log('ghost right of player')
-            ghostCurrentPosition--
-            console.log('moving left')
-          } else if (x === a) {
-            console.log('ghost on same vertical plane as player')
+          if (isRightClear() === true) {
+            moveGhostRight()
+          } else {
+            console.log('border to right')
+            if (isLeftClear() === true) {
+              moveGhostLeft()
+            } else {
+              console.log('border to left')
+              if (isDownClear() === true) {
+                moveGhostDown()
+              } 
+            }
+          }
+        } else if (x < a) {
+          console.log('ghost to right of player')
+          if (isLeftClear() === true) {
+            moveGhostLeft()
+          } else {
+            console.log('border to left') 
+            if (isDownClear() === true) {
+              moveGhostDown()
+            } else {
+              console.log('border below')
+              if (isRightClear() === true) {
+                moveGhostRight()
+              }
+            }
+          }
+        } else if (x === a) {
+          console.log('ghost above player')
+          if (isLeftClear() === true) {
+            moveGhostLeft()
+            moveGhostLeft()
+          } else if (isRightClear() === true) {
+            moveGhostRight()
+            moveGhostRight()
           }
         }
       }
     } else if (y < b) {
       console.log('ghost lower than player')
-      if (!cells[ghostCurrentPosition - width].classList.contains(borderClass)) {
-        ghostCurrentPosition -= width
-        console.log('moving up')
+      if (isUpClear() === true ) {
+        moveGhostUp()
       } else {
         if (x > a) {
           console.log('ghost left of player')
-          if (!cells[ghostCurrentPosition + 1].classList.contains(borderClass)) {
-            ghostCurrentPosition++ 
-            console.log('moving right')
+          if (isRightClear() === true) {
+            moveGhostRight()
           } else if (x < a) {
             console.log('ghost right of player')
-            ghostCurrentPosition--
-            console.log('moving left')
+            if (isLeftClear() === true) {
+              moveGhostLeft()
+            }
           } else if (x === a) {
             console.log('ghost on same vertical plane as player')
           }
@@ -272,18 +354,18 @@ function init() {
       console.log('ghost on same horizontal plane as player')
       if (x > a) {
         console.log('ghost left of player')
-        if (!cells[ghostCurrentPosition + 1].classList.contains(borderClass)) {
-          ghostCurrentPosition++ 
-          console.log('moving right')
-        } else if (x < a) {
-          console.log('ghost right of player')
-          ghostCurrentPosition--
-          console.log('moving left')
-        } else if (x === a) [
-          console.log('ghost on same vertical plane as player')
-        ]
+        if (isRightClear() === true) {
+          moveGhostRight()
+        } 
+      } else if (x < a) {
+        console.log('ghost right of player')
+        if (isLeftClear() === true) {
+          moveGhostLeft()
+        }
       }
-    }
+    }  
+  
+    
     
 
     addFirstGhost(ghostCurrentPosition)
@@ -311,7 +393,7 @@ function init() {
   const move = setInterval(() => {
     console.log('ready to move')
     moveGhost()
-  }, 300)
+  }, 500)
 
   // eat fruit
   function eatFruit(playerCurrentPosition) {
