@@ -14,6 +14,7 @@ function init() {
   const ghostClass = 'ghost'
   const ghostStartPosition = 38
   let ghostCurrentPosition = 38
+  let ghostPreviousPosition = 38
 
   // level
   const level = 'beginner'
@@ -133,6 +134,7 @@ function init() {
         handleInteraction(playerCurrentPosition)
       }
     }
+
     // adds the player back in, checks for ghosts
     addPlayer(playerCurrentPosition)
     if (cells[playerCurrentPosition].classList.contains(ghostClass)) {
@@ -276,6 +278,13 @@ function init() {
     }
   }
 
+  // check previous position
+  function isPreviousPosition(position) {
+    if (position === ghostPreviousPosition) {
+      return true
+    } 
+  }
+
 
   // move the ghost intellegently
   function moveGhost() {
@@ -288,46 +297,46 @@ function init() {
     if (y > b) {
       console.log('ghost higher than player')
       if (isDownClear() === true) {
-        moveGhostDown()
+        moveGhostDown() // move down
       } else {
         if (x > a) {
           console.log('ghost left of player')
           if (isRightClear() === true) {
-            moveGhostRight()
+            moveGhostRight() // move right
           } else {
             console.log('border to right')
             if (isLeftClear() === true) {
-              moveGhostLeft()
+              moveGhostLeft() // move left
             } else {
               console.log('border to left')
-              if (isDownClear() === true) {
-                moveGhostDown()
+              if (isUpClear() === true) {
+                moveGhostUp() // move up
               } 
             }
           }
         } else if (x < a) {
           console.log('ghost to right of player')
           if (isLeftClear() === true) {
-            moveGhostLeft()
+            moveGhostLeft() // move left
           } else {
             console.log('border to left') 
-            if (isDownClear() === true) {
-              moveGhostDown()
+            if ( isUpClear() === true) {
+              moveGhostUp() // move up
             } else {
               console.log('border below')
               if (isRightClear() === true) {
-                moveGhostRight()
+                moveGhostRight() // move right
               }
             }
           }
         } else if (x === a) {
           console.log('ghost above player')
           if (isLeftClear() === true) {
-            moveGhostLeft()
-            moveGhostLeft()
+            moveGhostLeft() // move left
           } else if (isRightClear() === true) {
-            moveGhostRight()
-            moveGhostRight()
+            moveGhostRight() // move right
+          } else if (isUpClear() === true) {
+            moveGhostUp() // move up
           }
         }
       }
@@ -340,13 +349,28 @@ function init() {
           console.log('ghost left of player')
           if (isRightClear() === true) {
             moveGhostRight()
-          } else if (x < a) {
-            console.log('ghost right of player')
-            if (isLeftClear() === true) {
-              moveGhostLeft()
-            }
-          } else if (x === a) {
-            console.log('ghost on same vertical plane as player')
+          } else if (isLeftClear() === true) {
+            moveGhostLeft()
+          } else if (isDownClear() === true) {
+            moveGhostDown()
+          }
+        } else if (x < a) {
+          console.log('ghost right of player')
+          if (isLeftClear() === true) {
+            moveGhostLeft()
+          } else if (isDownClear() === true) {
+            moveGhostDown()
+          } else if (isRightClear() === true) {
+            moveGhostRight()
+          }
+        } else if (x === a) {
+          console.log('ghost on same vertical plane as player')
+          if (isLeftClear() === true) {
+            moveGhostLeft()
+          } else if (isRightClear() === true) {
+            moveGhostRight()
+          } else if (isDownClear() === true) {
+            moveGhostDown()
           }
         }
       }
@@ -356,11 +380,23 @@ function init() {
         console.log('ghost left of player')
         if (isRightClear() === true) {
           moveGhostRight()
-        } 
+        }  else if (isLeftClear() === true) {
+          moveGhostLeft()
+        } else if (isDownClear() === true) {
+          moveGhostDown()
+        } else if (isUpClear() === true) {
+          moveGhostUp()
+        }
       } else if (x < a) {
         console.log('ghost right of player')
         if (isLeftClear() === true) {
           moveGhostLeft()
+        } else if (isDownClear() === true) {
+          moveGhostDown
+        } else if (isRightClear() === true) {
+          moveGhostRight()
+        } else if (isUpClear() === true) {
+          moveGhostUp()
         }
       }
     }  
