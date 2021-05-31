@@ -15,6 +15,7 @@ function init() {
   const ghostStartPosition = 38
   let ghostCurrentPosition = 38
   let ghostPreviousPosition = 38
+  let newPosition = 38
 
   // level
   const level = 'beginner'
@@ -279,11 +280,17 @@ function init() {
   }
 
   // check previous position
-  function isPreviousPosition(position) {
-    if (position === ghostPreviousPosition) {
+  function isPreviousPosition() {
+    if (newPosition === ghostPreviousPosition) {
       return true
-    } 
+    } else {
+      return false
+    }
   }
+
+  // previous position = store position before moving
+  // new position == move that is about to happen
+  
 
 
   // move the ghost intellegently
@@ -296,107 +303,109 @@ function init() {
     removeFirstGhost(ghostCurrentPosition)
     if (y > b) {
       console.log('ghost higher than player')
-      if (isDownClear() === true) {
+      ghostPreviousPosition = ghostCurrentPosition
+      
+      if (isDownClear() === true && isPreviousPosition() === false) { // check tile below is clear
         moveGhostDown() // move down
-      } else {
-        if (x > a) {
+      } else { // if below is blocked, do the following
+        if (x > a) { // if ghost left of player
           console.log('ghost left of player')
-          if (isRightClear() === true) {
+          if (isRightClear() === true) { // check tile to right is clear
             moveGhostRight() // move right
-          } else {
+          } else { // if down and right is blocked
             console.log('border to right')
-            if (isLeftClear() === true) {
+            if (isLeftClear() === true) { // check tile to left is clear
               moveGhostLeft() // move left
-            } else {
+            } else { // if down, right and left is blocked
               console.log('border to left')
-              if (isUpClear() === true) {
+              if (isUpClear() === true) { // check tile above is clear
                 moveGhostUp() // move up
               } 
             }
           }
-        } else if (x < a) {
+        } else if (x < a) { // if ghost is to right of player
           console.log('ghost to right of player')
-          if (isLeftClear() === true) {
+          if (isLeftClear() === true) { // check tile to left is clear
             moveGhostLeft() // move left
-          } else {
+          } else { // if down and left is blocked
             console.log('border to left') 
-            if ( isUpClear() === true) {
+            if ( isUpClear() === true) { // check tile above is clear
               moveGhostUp() // move up
-            } else {
+            } else { // if down, left and above is blocked
               console.log('border below')
-              if (isRightClear() === true) {
+              if (isRightClear() === true) { // check tile to right is clear
                 moveGhostRight() // move right
               }
             }
           }
-        } else if (x === a) {
-          console.log('ghost above player')
-          if (isLeftClear() === true) {
+        } else if (x === a) { // if player and ghost are in line on y-axis
+          console.log('ghost directly above player')
+          if (isLeftClear() === true) { // check if left tile is clear
             moveGhostLeft() // move left
-          } else if (isRightClear() === true) {
+          } else if (isRightClear() === true) { // if down and left are blocked, check if right tile is clear
             moveGhostRight() // move right
-          } else if (isUpClear() === true) {
+          } else if (isUpClear() === true) { // if down, left and right are blocked, check if tile above is clear
             moveGhostUp() // move up
           }
         }
       }
-    } else if (y < b) {
+    } else if (y < b) { // if ghost is below player
       console.log('ghost lower than player')
-      if (isUpClear() === true ) {
-        moveGhostUp()
-      } else {
-        if (x > a) {
+      if (isUpClear() === true ) { // check tile above is clear
+        moveGhostUp() // move ghost up 
+      } else { // if above is blocked
+        if (x > a) { // check if ghost is left of player
           console.log('ghost left of player')
-          if (isRightClear() === true) {
-            moveGhostRight()
-          } else if (isLeftClear() === true) {
-            moveGhostLeft()
-          } else if (isDownClear() === true) {
-            moveGhostDown()
+          if (isRightClear() === true) { // check if tile to right is clear
+            moveGhostRight() // move ghost right
+          } else if (isLeftClear() === true) { // if above and right is blocked, check left is clear
+            moveGhostLeft() // move ghost left
+          } else if (isDownClear() === true) { // if above, right and left is blocked, check down is clear
+            moveGhostDown() // move ghost down
           }
-        } else if (x < a) {
+        } else if (x < a) { // if ghost is right of player
           console.log('ghost right of player')
-          if (isLeftClear() === true) {
-            moveGhostLeft()
-          } else if (isDownClear() === true) {
-            moveGhostDown()
-          } else if (isRightClear() === true) {
-            moveGhostRight()
+          if (isLeftClear() === true) { // check tile to left is clear
+            moveGhostLeft() // move ghost left
+          } else if (isDownClear() === true) { // if above and left is blocked, check if tile below is clear
+            moveGhostDown() // move ghost down
+          } else if (isRightClear() === true) { // if above, left and below is blocked, check right is clear
+            moveGhostRight() // move ghost right
           }
-        } else if (x === a) {
+        } else if (x === a) { // if ghost and player are in line on the y-axis
           console.log('ghost on same vertical plane as player')
-          if (isLeftClear() === true) {
-            moveGhostLeft()
-          } else if (isRightClear() === true) {
-            moveGhostRight()
-          } else if (isDownClear() === true) {
-            moveGhostDown()
+          if (isLeftClear() === true) { // check left tile is clear
+            moveGhostLeft() // move ghost left
+          } else if (isRightClear() === true) { // if above and left tile is blocked, check right is clear
+            moveGhostRight() // move ghost right
+          } else if (isDownClear() === true) { // if above, left and right tile is blocked, check below is clear 
+            moveGhostDown() // move ghost down
           }
         }
       }
-    } else if (y === b) {
+    } else if (y === b) { // if ghost and player are in line on x-axis
       console.log('ghost on same horizontal plane as player')
-      if (x > a) {
+      if (x > a) { // if ghost to left of player
         console.log('ghost left of player')
-        if (isRightClear() === true) {
-          moveGhostRight()
-        }  else if (isLeftClear() === true) {
-          moveGhostLeft()
-        } else if (isDownClear() === true) {
-          moveGhostDown()
-        } else if (isUpClear() === true) {
-          moveGhostUp()
+        if (isRightClear() === true) { // check tile to right is clear
+          moveGhostRight() // move right
+        }  else if (isLeftClear() === true) { // if right is blocked, check tile to left is clear
+          moveGhostLeft() // move left
+        } else if (isDownClear() === true) { // if right and left blocked, check tile below is clear
+          moveGhostDown() // moev down
+        } else if (isUpClear() === true) { // if right, left and down blocked, check tile above is clear
+          moveGhostUp() // move up
         }
-      } else if (x < a) {
+      } else if (x < a) { // if ghost to right of player
         console.log('ghost right of player')
-        if (isLeftClear() === true) {
-          moveGhostLeft()
-        } else if (isDownClear() === true) {
-          moveGhostDown
-        } else if (isRightClear() === true) {
-          moveGhostRight()
-        } else if (isUpClear() === true) {
-          moveGhostUp()
+        if (isLeftClear() === true) { // check left is clear
+          moveGhostLeft() // move left
+        } else if (isDownClear() === true) { // if left blocked, check down is clear
+          moveGhostDown // move down
+        } else if (isRightClear() === true) { // if left and down blocked, check right is clear
+          moveGhostRight() // move right
+        } else if (isUpClear() === true) { // if left, down and right blocked, check up is clear
+          moveGhostUp() // move up
         }
       }
     }  
