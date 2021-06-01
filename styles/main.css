@@ -143,6 +143,12 @@ img {
   background-size: 70%;
 }
 
+.grid div.tarantula {
+  background-image: url(https://dodo.ac/np/images/thumb/b/bf/Tarantula_NH.png/200px-Tarantula_NH.png);
+  background-repeat: no-repeat;
+  background-size: 70%;
+}
+
 .food {
   background-image: url(https://media0.giphy.com/media/ftqucH6K7xo4DBlPRF/giphy.gif?cid=6c09b9529vs9x9zvq2oke4ubywuy3os18wn175n6uotn7z3y&rid=giphy.gif);
   background-repeat: no-repeat;
