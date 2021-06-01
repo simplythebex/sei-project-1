@@ -205,14 +205,14 @@ function init() {
   }
 
   // moves ghost right
-  function moveGhostRight() {
+  function moveScorpianRight() {
     scorpianPreviousPosition = scorpianCurrentPosition
     scorpianCurrentPosition++ 
     // console.log('moving right')
   }
 
   // move ghost left
-  function moveGhostLeft () {
+  function moveScorpianLeft () {
     console.log(scorpianCurrentPosition)
     scorpianPreviousPosition = scorpianCurrentPosition
     scorpianCurrentPosition--
@@ -220,14 +220,14 @@ function init() {
   }
 
   // moves ghost up
-  function moveGhostUp () {
+  function moveScorpianUp () {
     scorpianPreviousPosition = scorpianCurrentPosition
     scorpianCurrentPosition -= width
     // console.log('moving up')
   }
 
-  // moves ghost down
-  function moveGhostDown () {
+  // moves scorpian down
+  function moveScorpianDown () {
     scorpianPreviousPosition = scorpianCurrentPosition
     scorpianCurrentPosition += width
     // console.log('moving down')
@@ -267,7 +267,7 @@ function init() {
 
 
   // move the ghost intellegently
-  function moveGhost() {
+  function moveScorpian() {
 
     const down = scorpianCurrentPosition + width
     const left = scorpianCurrentPosition - 1
@@ -287,82 +287,82 @@ function init() {
     } else if (y > b) {
       console.log('ghost higher than player')      
       if (isDownClear(scorpianCurrentPosition) === true && down !== scorpianPreviousPosition) { // check tile below is clear, check previous position
-        moveGhostDown() // move down
+        moveScorpianDown() // move down
       } else { // if below is blocked, do the following
         if (x > a) { // if ghost left of player
           console.log('ghost left of player')
           if (isRightClear(scorpianCurrentPosition) === true && right !== scorpianPreviousPosition) { // check tile to right is clear
-            moveGhostRight() // move right
+            moveScorpianRight() // move right
           } else { // if down and right is blocked
             console.log('border to right')
             if (isLeftClear(scorpianCurrentPosition) === true && left !== scorpianPreviousPosition) { // check tile to left is clear
-              moveGhostLeft() // move left
+              moveScorpianLeft() // move left
             } else { // if down, right and left is blocked
               console.log('border to left')
               if (isUpClear(scorpianCurrentPosition) === true) { // check tile above is clear
-                moveGhostUp() // move up
+                moveScorpianUp() // move up
               } 
             }
           }
         } else if (x < a) { // if ghost is to right of player
           console.log('ghost to right of player')
           if (isLeftClear(scorpianCurrentPosition) === true && left !== scorpianPreviousPosition) { // check tile to left is clear
-            moveGhostLeft() // move left
+            moveScorpianLeft() // move left
           } else { // if down and left is blocked
             console.log('border to left') 
             if (isRightClear(scorpianCurrentPosition) === true && up !== scorpianPreviousPosition) { // check tile to right is clear
-              moveGhostRight() // move right
+              moveScorpianRight() // move right
             } else { // if down, left and right is blocked
               console.log('border below')
               if (isUpClear(scorpianCurrentPosition) === true) { // check tile above is clear
-                moveGhostUp() // move up
+                moveScorpianUp() // move up
               }
             }
           }
         } else if (x === a) { // if player and ghost are in line on y-axis
           console.log('ghost directly above player')
           if (isLeftClear(scorpianCurrentPosition) === true && left !== scorpianPreviousPosition) { // check if left tile is clear
-            moveGhostLeft() // move left
+            moveScorpianLeft() // move left
           } else if (isRightClear(scorpianCurrentPosition) === true && right !== scorpianPreviousPosition) { // if down and left are blocked, check if right tile is clear
-            moveGhostRight() // move right
+            moveScorpianRight() // move right
           } else if (isUpClear(scorpianCurrentPosition) === true) { // if down, left and right are blocked, check if tile above is clear
-            moveGhostUp() // move up
+            moveScorpianUp() // move up
           }
         }
       }
     } else if (y < b) { // if ghost is below player
       console.log('ghost lower than player')
       if (isUpClear(scorpianCurrentPosition) === true && up !== scorpianPreviousPosition) { // check tile above is clear
-        moveGhostUp() // move ghost up 
+        moveScorpianUp() // move ghost up 
       } else { // if above is blocked
         if (x > a) { // check if ghost is left of player
           console.log('ghost left of player')
           if (isRightClear(scorpianCurrentPosition) === true && right !== scorpianPreviousPosition) { // check if tile to right is clear
             console.log(right)
-            moveGhostRight() // move ghost right
+            moveScorpianRight() // move ghost right
           } else if (isLeftClear(scorpianCurrentPosition) === true && left !== scorpianPreviousPosition) { // if above and right is blocked, check left is clear
-            moveGhostLeft() // move ghost left
+            moveScorpianLeft() // move ghost left
           } else if (isDownClear(scorpianCurrentPosition) === true && down !== scorpianPreviousPosition) { // if above, right and left is blocked, check down is clear
-            moveGhostDown() // move ghost down
+            moveScorpianDown() // move ghost down
           }
         } else if (x < a) { // if ghost is right of player
           console.log('ghost right of player')
           if (isLeftClear(scorpianCurrentPosition) === true && left !== scorpianPreviousPosition) { // check tile to left is clear
-            moveGhostLeft() // move ghost left
+            moveScorpianLeft() // move ghost left
           } else if (isDownClear(scorpianCurrentPosition) === true && down !== scorpianPreviousPosition) { // if above and left is blocked, check if tile below is clear
-            moveGhostDown() // move ghost down
+            moveScorpianDown() // move ghost down
           } else if (isRightClear(scorpianCurrentPosition) === true && right !== scorpianPreviousPosition) { // if above, left and below is blocked, check right is clear
-            moveGhostRight() // move ghost right
+            moveScorpianRight() // move ghost right
           }
         } else if (x === a) { // if ghost and player are in line on the y-axis
           console.log('ghost on same vertical plane as player')
           if (isLeftClear(scorpianCurrentPosition) === true && left !== scorpianPreviousPosition) { // check left tile is clear
             console.log('move left')
-            moveGhostLeft() // move ghost left
+            moveScorpianLeft() // move ghost left
           } else if (isRightClear(scorpianCurrentPosition) === true && right !== scorpianPreviousPosition) { // if above and left tile is blocked, check right is clear
-            moveGhostRight() // move ghost right
+            moveScorpianRight() // move ghost right
           } else if (isDownClear(scorpianCurrentPosition) === true && down !== scorpianPreviousPosition) { // if above, left and right tile is blocked, check below is clear 
-            moveGhostDown() // move ghost down
+            moveScorpianDown() // move ghost down
           }
         }
       }
@@ -371,27 +371,27 @@ function init() {
       if (x > a) { // if ghost to left of player
         console.log('ghost left of player')
         if (isRightClear(scorpianCurrentPosition) === true && right !== scorpianPreviousPosition) { // check tile to right is clear
-          moveGhostRight() // move right
+          moveScorpianRight() // move right
         }  else if (isLeftClear(scorpianCurrentPosition) === true && left !== scorpianPreviousPosition) { // if right is blocked, check tile to left is clear
-          moveGhostLeft() // move left
+          moveScorpianLeft() // move left
         } else if (isDownClear(scorpianCurrentPosition) === true && down !== scorpianPreviousPosition) { // if right and left blocked, check tile below is clear
-          moveGhostDown() // move down
+          moveScorpianDown() // move down
         } else if (isUpClear(scorpianCurrentPosition) === true) { // if right, left and down blocked, check tile above is clear
-          moveGhostUp() // move up
+          moveScorpianUp() // move up
         }
       } else if (x < a) { // if ghost to right of player
         console.log('ghost right of player')
         if (isLeftClear(scorpianCurrentPosition) === true && left !== scorpianPreviousPosition) { // check left is clear
-          moveGhostLeft() // move left
+          moveScorpianLeft() // move left
         } else if (isDownClear(scorpianCurrentPosition) === true && down !== scorpianPreviousPosition) { // if left blocked, check down is clear
           console.log('left not clear')
-          moveGhostDown() // move down
+          moveScorpianDown() // move down
         } else if (isRightClear(scorpianCurrentPosition) === true && right !== scorpianPreviousPosition) { // if left and down blocked, check right is clear
           console.log('down not clear')
-          moveGhostRight() // move right
+          moveScorpianRight() // move right
         } else if (isUpClear(scorpianCurrentPosition) === true) { // if left, down and right blocked, check up is clear
           console.log('right not clear, moving up')
-          moveGhostUp() // move up
+          moveScorpianUp() // move up
         }
       }
     }  
@@ -409,7 +409,7 @@ function init() {
   // call move ghost
   const move = setInterval(() => {
     console.log('ready to move')
-    moveGhost()
+    moveScorpian()
   }, 500)
 
   // eat fruit
