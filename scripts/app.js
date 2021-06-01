@@ -5,6 +5,7 @@ function init() {
   // const audio = document.querySelector('audio')
   const start = document.querySelector('.start')
   const reset = document.querySelector('.reset')
+  const help = document.querySelector('.help')
   // const sound = document.querySelector('.sound')
   const width = 11
   const cellCount = width * width
@@ -62,7 +63,10 @@ function init() {
 
   // results
   const result = document.querySelector('.display-result')
-  console.log(result)
+  // console.log(result)
+
+  // help
+  const displayHelp = document.querySelector('.display-help')
 
   // ! functions
 
@@ -153,6 +157,18 @@ function init() {
     // prevents scrolling
     if (key === 38 || key === 40) {
       event.preventDefault()
+    }
+
+    // closes help
+    if (key === 27) {
+      displayHelp.classList.add(hiddenClass)
+      if (pauseStatus === true) {
+        move = setInterval(() => {
+          moveScorpian()
+          moveTarantula()
+        }, 500)
+        pauseStatus = false
+      }
     }
 
     // moves the player
@@ -735,9 +751,6 @@ function init() {
       moveScorpian()
       moveTarantula()
     }, 500)
-
-    //hides previous result
-    // result.classList.add('hidden')
   }
 
   // reset game 
@@ -767,6 +780,15 @@ function init() {
 
   }
 
+  // help
+  function handleHelp () {
+    displayHelp.classList.remove('hidden')
+    if (pauseStatus === false) {
+      clearInterval(move)
+      pauseStatus = true
+    }
+  }
+
   // make the grid
   createGrid(playerStartPosition)
 
@@ -774,6 +796,7 @@ function init() {
 
   start.addEventListener('click', handleStart)
   reset.addEventListener('click', handleReset)
+  help.addEventListener('click', handleHelp)
   // document.addEventListener('click', handleSound)
 
 }
