@@ -2,13 +2,14 @@ function init() {
 
   // ! variables
   const grid = document.querySelector('.grid')
-  const audio = document.querySelector('audio')
+  // const audio = document.querySelector('audio')
   const start = document.querySelector('.start')
   const reset = document.querySelector('.reset')
-  const sound = document.querySelector('.sound')
+  // const sound = document.querySelector('.sound')
   const width = 11
   const cellCount = width * width
   const cells = []
+  let pauseStatus = false
 
   // player info
   const playerClass = 'player'
@@ -112,7 +113,7 @@ function init() {
     cells[position].classList.remove(ghostClass)
   }
 
-  // reset ghosts
+  // reset characters
   function resetAllCharacters() {
     removePlayer(playerCurrentPosition)
     removeGhost(scorpianCurrentPosition, scorpianClass)
@@ -131,9 +132,22 @@ function init() {
     getFossil(playerCurrentPosition)
   }
 
-  // move the player
+  // key events
   function handleKeyDown(event) {
     const key = event.keyCode
+    if (key === 80) { // pauses game
+      if (pauseStatus === false) {
+        clearInterval(move)
+        pauseStatus = true
+      } else {
+        move = setInterval(() => {
+          moveScorpian()
+          moveTarantula()
+        }, 500)
+        pauseStatus = false
+      }
+    } 
+
     removePlayer(playerCurrentPosition)
 
     // prevents scrolling
@@ -141,6 +155,7 @@ function init() {
       event.preventDefault()
     }
 
+    // moves the player
     // checks which key is pressed, whether there is a border in the direction of press, whether there is a ghost on new tile
     if (key === 38 && !cells[playerCurrentPosition - width].classList.contains(borderClass)) { // up
       playerCurrentPosition -= width
