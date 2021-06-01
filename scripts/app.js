@@ -321,7 +321,7 @@ function init() {
               moveGhostLeft() // move left
             } else { // if down, right and left is blocked
               console.log('border to left')
-              if (isUpClear() === true && up !== scorpianPreviousPosition) { // check tile above is clear
+              if (isUpClear() === true) { // check tile above is clear
                 moveGhostUp() // move up
               } 
             }
@@ -332,12 +332,12 @@ function init() {
             moveGhostLeft() // move left
           } else { // if down and left is blocked
             console.log('border to left') 
-            if (isUpClear() === true && up !== scorpianPreviousPosition) { // check tile above is clear
-              moveGhostUp() // move up
-            } else { // if down, left and above is blocked
+            if (isRightClear() === true && up !== scorpianPreviousPosition) { // check tile to right is clear
+              moveGhostRight() // move right
+            } else { // if down, left and right is blocked
               console.log('border below')
-              if (isRightClear() === true && right !== scorpianPreviousPosition) { // check tile to right is clear
-                moveGhostRight() // move right
+              if (isUpClear() === true) { // check tile above is clear
+                moveGhostUp() // move up
               }
             }
           }
