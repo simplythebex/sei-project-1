@@ -9,7 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
   background-image: url(https://www.teahub.io/photos/full/40-406328_animal-crossing-images-data-src-animal-crossing-desktop.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -36,7 +36,7 @@ img {
   color: #72413b;
   border: 2px solid #f2d9c7;
   background-color: #f8a7b0;
-  border-radius: 30%;
+  border-radius: 20px;
   font-family: 'Comic Neue', cursive;
   font-weight: 900;
   font-size: 1.2em;
@@ -66,7 +66,7 @@ img {
   color: #72413b;
   border: 2px solid #f2d9c7;
   background-color: #f8a7b0;
-  border-radius: 30%;
+  border-radius: 20px;
   font-family: 'Comic Neue', cursive;
   font-weight: 900;
   font-size: 1.2em;
@@ -84,6 +84,41 @@ img {
 .lives-container img {
   width: 40px;
   height: 30px;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 220px;
+}
+
+.button {
+  text-align: center;
+  align-items: center;
+  padding: 20px 0;
+  margin: 20px;
+  width: 160px;
+  height: 65px;
+  color: #72413b;
+  border: 2px solid #f2d9c7;
+  background-color: #f8a7b0;
+  border-radius: 20px;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 900;
+  font-size: 1.2em;
+}
+
+.start {
+  position: absolute;
+  margin-left: 420px;
+}
+
+.start:hover {
+  cursor: pointer;
+  background-color: #efe05f;
+  border: 2px solid #72413b;
 }
 
 .grid {
@@ -110,15 +145,18 @@ img {
 }
 
 .display-result {
-  width: 50%;
-  height: 10%;
+  width: 25%;
   text-align: center;
+  padding: 27px;
   color: #72413b;
   border: 2px solid #f2d9c7;
   background-color: #f8a7b0;
   font-family: 'Comic Neue', cursive;
   font-weight: 900;
   font-size: 1.2em;
+  border-radius: 20px;
+  position: absolute;
+  margin-left: 320px;
 }
 
 .hidden {

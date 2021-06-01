@@ -1,6 +1,8 @@
 function init() {
   // variables
   const grid = document.querySelector('.grid')
+  const start = document.querySelector('.start')
+  const sound = document.querySelector('.sound')
   const width = 11
   const cellCount = width * width
   const cells = []
@@ -80,9 +82,9 @@ function init() {
         grabLives[2].classList.add(hiddenClass)
       }
     }
-    addPlayer(playerStartPosition)
-    addGhost(scorpianStartPosition, scorpianClass)
-    addGhost(tarantulaStartPosition, tarantulaClass)
+    // addPlayer(playerStartPosition)
+    // addGhost(scorpianStartPosition, scorpianClass)
+    // addGhost(tarantulaStartPosition, tarantulaClass)
   }
 
   // add the player 
@@ -596,11 +598,11 @@ function init() {
   }
 
   // call move ghost
-  const move = setInterval(() => {
-    console.log('ready to move')
-    moveScorpian()
-    moveTarantula()
-  }, 500)
+  // const move = setInterval(() => {
+  //   console.log('ready to move')
+  //   moveScorpian()
+  //   moveTarantula()
+  // }, 500)
 
   // eat fruit
   function eatFruit(playerCurrentPosition) {
@@ -676,7 +678,6 @@ function init() {
       clearInterval(move)
       result.classList.remove('hidden')
       result.innerText = `You win! Your score: ${score}`
-      // grid.classList.add(hiddenClass)
     }
   }
 
@@ -689,8 +690,29 @@ function init() {
       }
       result.classList.remove('hidden')
       result.innerText = `You were caught too many times! Game Over! Your score: ${score}`
-      // grid.classList.add(hiddenClass)
     }
+  }
+
+  // defines move
+  let move 
+
+  // start game
+  function handleStart (event) {
+
+    // removes start button
+    event.target.classList.add(hiddenClass)
+
+    // adds characters
+    addPlayer(playerStartPosition)
+    addGhost(scorpianStartPosition, scorpianClass)
+    addGhost(tarantulaStartPosition, tarantulaClass)
+
+    // calls move
+    move = setInterval(() => {
+      console.log('ready to move')
+      moveScorpian()
+      moveTarantula()
+    }, 500)
   }
 
   // makes the grid
@@ -698,6 +720,8 @@ function init() {
 
   // event listeners
   document.addEventListener('keydown', handleKeyDown)
+  start.addEventListener('click', handleStart)
+  // document.addEventListener('click', handleSound)
 
 }
 
