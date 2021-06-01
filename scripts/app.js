@@ -1,6 +1,6 @@
 function init() {
 
-  // variables
+  // ! variables
   const grid = document.querySelector('.grid')
   const audio = document.querySelector('audio')
   const start = document.querySelector('.start')
@@ -43,8 +43,8 @@ function init() {
   const fossilClass = 'fossil'
   let lives = 2
   const grabLives = document.querySelectorAll('.life')
-  console.log(grabLives)
 
+  // hide classes
   const hiddenClass = 'hidden'
 
   // player coordinates
@@ -63,15 +63,16 @@ function init() {
   const result = document.querySelector('.display-result')
   console.log(result)
 
-  // functions
+  // ! functions
 
   // create the grid
   function createGrid() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
-      // cell.innerText = i
+      cell.innerText = i
       grid.appendChild(cell)
       cells.push(cell)
+
       // generate borders and map
       if (level === 'beginner') {
         if (i < width || (i % width === 0 && i !== 55) || (i % width === width - 1 && i !== 65) || i + width > width * width - 1 || borderArray.includes(i)) {
@@ -85,6 +86,10 @@ function init() {
         grabLives[2].classList.add(hiddenClass)
       }
     }
+
+    addPlayer(playerStartPosition)
+    addGhost(scorpianStartPosition, scorpianClass)
+    addGhost(tarantulaStartPosition, tarantulaClass)
   }
 
   // add the player 
@@ -105,6 +110,19 @@ function init() {
   // remove ghost
   function removeGhost(position, ghostClass) {
     cells[position].classList.remove(ghostClass)
+  }
+
+  // reset ghosts
+  function resetAllCharacters() {
+    removePlayer(playerCurrentPosition)
+    removeGhost(scorpianCurrentPosition, scorpianClass)
+    removeGhost(tarantulaCurrentPosition, tarantulaClass)
+    playerCurrentPosition = playerStartPosition
+    scorpianCurrentPosition = scorpianStartPosition
+    tarantulaCurrentPosition = tarantulaStartPosition
+    addPlayer(playerCurrentPosition)
+    addGhost(scorpianCurrentPosition, scorpianClass)
+    addGhost(tarantulaCurrentPosition, tarantulaClass)
   }
 
   // eat fruit/fossil
@@ -294,7 +312,6 @@ function init() {
 
   // move the scorpian intellegently
   function moveScorpian() {
-
     const down = scorpianCurrentPosition + width
     const left = scorpianCurrentPosition - 1
     const right = scorpianCurrentPosition + 1
@@ -597,13 +614,6 @@ function init() {
     setTarantulaCoordinates()
   }
 
-  // call move ghost
-  // const move = setInterval(() => {
-  //   console.log('ready to move')
-  //   moveScorpian()
-  //   moveTarantula()
-  // }, 500)
-
   // eat fruit
   function eatFruit(playerCurrentPosition) {
     if (cells[playerCurrentPosition].classList.contains(foodClass)) {
@@ -634,7 +644,8 @@ function init() {
     }
   }
 
-  // update life display:
+  // ! update life display:
+
   // increases life display 
   function increaseLives(lives) {
     if (lives === 1) {
@@ -655,13 +666,10 @@ function init() {
   }
 
   // caught by ghost
-  function touchGhost(playerCurrentPosition) {
-    removePlayer(playerCurrentPosition)
+  function touchGhost() {
     decreaseLives(lives)
     lives--
-    // console.log('lives post catch ->', lives)
-    playerCurrentPosition = playerStartPosition
-    addPlayer(playerStartPosition)
+    resetAllCharacters()
     gameOver(score, lives)
   }
 
@@ -696,7 +704,7 @@ function init() {
   // defines move
   let move 
 
-  // start game
+  // ! start game
   function handleStart (event) {
 
     // removes start button
@@ -706,11 +714,6 @@ function init() {
     // starts player moving
     document.addEventListener('keydown', handleKeyDown)
 
-    // adds characters
-    addPlayer(playerStartPosition)
-    addGhost(scorpianStartPosition, scorpianClass)
-    addGhost(tarantulaStartPosition, tarantulaClass)
-
     // calls move
     move = setInterval(() => {
       // console.log('ready to move')
@@ -718,8 +721,8 @@ function init() {
       moveTarantula()
     }, 500)
 
-    //hides previous score
-    result.classList.add('hidden')
+    //hides previous result
+    // result.classList.add('hidden')
   }
 
   // reset game 
@@ -728,10 +731,7 @@ function init() {
     clearInterval(move)
     removePlayer(playerCurrentPosition)
     playerCurrentPosition = playerStartPosition
-    removeGhost(scorpianCurrentPosition, scorpianClass)
-    scorpianCurrentPosition = scorpianStartPosition
-    removeGhost(tarantulaCurrentPosition, tarantulaClass)
-    tarantulaCurrentPosition = tarantulaStartPosition
+    resetAllCharacters()
     score = 0 
     updateScore(score)
     lives = 2
@@ -748,13 +748,15 @@ function init() {
       }
     }
     grabLives[2].classList.add(hiddenClass)
+    result.classList.add('hidden')
 
   }
 
-  // makes the grid
+  // make the grid
   createGrid(playerStartPosition)
 
-  // event listeners
+  // ! event listeners
+
   start.addEventListener('click', handleStart)
   reset.addEventListener('click', handleReset)
   // document.addEventListener('click', handleSound)
