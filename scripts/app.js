@@ -1,6 +1,8 @@
 function init() {
+
   // variables
   const grid = document.querySelector('.grid')
+  const audio = document.querySelector('audio')
   const start = document.querySelector('.start')
   const sound = document.querySelector('.sound')
   const width = 11
@@ -63,7 +65,7 @@ function init() {
   // functions
 
   // create the grid
-  function createGrid(playerStartPosition) {
+  function createGrid() {
     for (let i = 0; i < cellCount; i++) {
       const cell = document.createElement('div')
       cell.innerText = i
@@ -696,11 +698,23 @@ function init() {
   // defines move
   let move 
 
+  // play audio
+  function playAudio () {
+    audio.play
+  }
+
   // start game
   function handleStart (event) {
 
     // removes start button
     event.target.classList.add(hiddenClass)
+
+    // starts player moving
+    document.addEventListener('keydown', handleKeyDown)
+
+    // starts audio
+    audio.src = 'https://www.epidemicsound.com/track/iUNHNjFpZl/'
+    playAudio()
 
     // adds characters
     addPlayer(playerStartPosition)
@@ -719,41 +733,10 @@ function init() {
   createGrid(playerStartPosition)
 
   // event listeners
-  document.addEventListener('keydown', handleKeyDown)
+  // document.addEventListener('keydown', handleKeyDown)
   start.addEventListener('click', handleStart)
   // document.addEventListener('click', handleSound)
 
 }
 
 window.addEventListener('DOMContentLoaded', init)
-
-
-
-// move the ghost
-// function moveGhost() {
-//   const randomIndex = Math.floor(Math.random() * 4)
-//   removeFirstGhost(ghostCurrentPosition)
-//   if (randomIndex === 0 && !cells[ghostCurrentPosition - width].classList.contains(borderClass)) { //up
-//     ghostCurrentPosition -= width
-//   } else if (randomIndex === 1 && (!cells[ghostCurrentPosition + 1].classList.contains(borderClass) || ghostCurrentPosition === 65)) { // right
-//     if (ghostCurrentPosition === 65) {
-//       ghostCurrentPosition = 55
-//     } else {
-//       ghostCurrentPosition ++
-//     }
-//   } else if (randomIndex === 2 && !cells[ghostCurrentPosition + width].classList.contains(borderClass)) { // down
-//     ghostCurrentPosition += width
-//   } else if (randomIndex === 3 && (!cells[ghostCurrentPosition - 1].classList.contains(borderClass) || ghostCurrentPosition === 55)) {// left
-//     if (ghostCurrentPosition === 55) {
-//       ghostCurrentPosition = 65
-//     } else {
-//       ghostCurrentPosition--
-//     }
-//   } 
-//   // adds the ghost back in, checks for player
-//   addFirstGhost(ghostCurrentPosition)
-//   if (cells[ghostCurrentPosition].classList.contains(playerClass)) {
-//     touchGhost(playerCurrentPosition)
-//     playerCurrentPosition = playerStartPosition
-//   }
-// }
