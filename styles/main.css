@@ -10,7 +10,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f3f3db;
+  background-image: url(https://www.teahub.io/photos/full/40-406328_animal-crossing-images-data-src-animal-crossing-desktop.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .stats-box {
