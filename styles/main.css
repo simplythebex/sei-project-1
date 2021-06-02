@@ -88,10 +88,8 @@ img {
 
 .main {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  margin-left: 220px;
+  margin: auto;
 }
 
 .button {
@@ -181,6 +179,11 @@ img {
 
 .hidden {
   display: none;
+}
+
+.padding {
+  width: 200px;
+  height: 275px;
 }
 
 
