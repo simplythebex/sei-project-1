@@ -233,7 +233,7 @@ function init() {
 
     // adds the player back in, checks for ghosts
     addPlayer(playerCurrentPosition)
-    if (cells[playerCurrentPosition].classList.contains(scorpianClass) || cells[playerCurrentPosition].classList.contains(tarantulaClass)) {
+    if (cells[playerCurrentPosition].classList.contains(scorpianClass) || cells[playerCurrentPosition].classList.contains(tarantulaClass) || cells[playerCurrentPosition].classList.contains(waspClass)) {
       touchGhost(playerCurrentPosition)
       playerCurrentPosition = playerStartPosition
     } 
