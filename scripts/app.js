@@ -30,6 +30,12 @@ function init() {
   let tarantulaCurrentPosition = 49
   let tarantulaPreviousPosition = 0
 
+  //wasp info
+  const waspClass = 'wasp'
+  const waspStartPosition = 38
+  let waspCurrentPosition = 38
+  let waspPreviousPosition = 0
+
   // level
   const level = 'beginner'
 
@@ -65,6 +71,13 @@ function init() {
   // tarantula goal coordinates
   let x1 = 2
 
+  // wasp coordinates
+  let e = 5
+  let f = 3
+
+  // wasp goal coordinates 
+  let x2 = 1
+
   // results
   const result = document.querySelector('.display-result')
   // console.log(result)
@@ -99,6 +112,7 @@ function init() {
     addPlayer(playerStartPosition)
     addGhost(scorpianStartPosition, scorpianClass)
     addGhost(tarantulaStartPosition, tarantulaClass)
+    addGhost(waspStartPosition, waspClass)
   }
 
   function handleEscapeKey(event) {
@@ -111,6 +125,7 @@ function init() {
           moveScorpian()
           // moveGhost(scorpianClass, scorpianCurrentPosition, scorpianPreviousPosition, x, y, a, b)
           moveTarantula()
+          moveWasp()
         }, 500)
         pauseStatus = false
         console.log('pause status on escape', pauseStatus)
@@ -144,14 +159,18 @@ function init() {
     removePlayer(playerCurrentPosition)
     removeGhost(scorpianCurrentPosition, scorpianClass)
     removeGhost(tarantulaCurrentPosition, tarantulaClass)
+    removeGhost(waspCurrentPosition, waspClass)
     playerCurrentPosition = playerStartPosition
     scorpianCurrentPosition = scorpianStartPosition
     tarantulaCurrentPosition = tarantulaStartPosition
+    waspCurrentPosition = waspStartPosition
     scorpianPreviousPosition = 0
     tarantulaPreviousPosition = 0
+    waspPreviousPosition = 0
     addPlayer(playerCurrentPosition)
     addGhost(scorpianCurrentPosition, scorpianClass)
     addGhost(tarantulaCurrentPosition, tarantulaClass)
+    addGhost(waspCurrentPosition, waspClass)
   }
 
   // eat fruit/fossil
@@ -173,6 +192,7 @@ function init() {
           moveScorpian()
           // moveGhost(scorpianClass, scorpianCurrentPosition, scorpianPreviousPosition, x, y, a, b)
           moveTarantula()
+          moveWasp()
         }, 500)
         pauseStatus = false
       }
@@ -251,12 +271,16 @@ function init() {
       x = xAxis
       y = yAxis
       x1 = xAxis + 1
+      x2 = xAxis - 1
     } else if (characterClass === scorpianClass) {
       a = xAxis
       b = yAxis
     } else if (characterClass === tarantulaClass) {
       c = xAxis
       d = yAxis
+    } else if (characterClass === waspClass) {
+      e = xAxis
+      f = yAxis
     }
   }
   
@@ -282,12 +306,15 @@ function init() {
     } else if (characterClass === tarantulaClass) {
       tarantulaCurrentPosition = characterCurrentPosition
       tarantulaPreviousPosition = characterPreviousPosition
+    } else if (characterClass === waspClass) {
+      waspCurrentPosition = characterCurrentPosition
+      waspPreviousPosition = characterPreviousPosition
     }
   }
 
   // checks tile to right is clear
   function isRightClear (ghostCurrentPosition) {
-    if (!cells[ghostCurrentPosition + 1].classList.contains(borderClass) && (!cells[ghostCurrentPosition + 1].classList.contains(tarantulaClass) || !cells[ghostCurrentPosition].classList.contains(scorpianClass))) {
+    if (!cells[ghostCurrentPosition + 1].classList.contains(borderClass) && (!cells[ghostCurrentPosition + 1].classList.contains(tarantulaClass) || !cells[ghostCurrentPosition].classList.contains(scorpianClass) || !cells[ghostCurrentPosition].classList.contains(waspClass))) {
       // console.log('right clear')
       return true
     }
@@ -295,7 +322,7 @@ function init() {
 
   // checks tile to left is clear
   function isLeftClear (ghostCurrentPosition) {
-    if (!cells[ghostCurrentPosition - 1].classList.contains(borderClass) && (!cells[ghostCurrentPosition - 1].classList.contains(tarantulaClass) || !cells[ghostCurrentPosition].classList.contains(scorpianClass))) {
+    if (!cells[ghostCurrentPosition - 1].classList.contains(borderClass) && (!cells[ghostCurrentPosition - 1].classList.contains(tarantulaClass) || !cells[ghostCurrentPosition].classList.contains(scorpianClass) || !cells[ghostCurrentPosition].classList.contains(waspClass))) {
       // console.log('left clear')
       return true
     }
@@ -303,7 +330,7 @@ function init() {
 
   // check tile above is clear
   function isUpClear (ghostCurrentPosition) {
-    if (!cells[ghostCurrentPosition - width].classList.contains(borderClass) && (!cells[ghostCurrentPosition - width].classList.contains(tarantulaClass) || !cells[ghostCurrentPosition].classList.contains(scorpianClass))) {
+    if (!cells[ghostCurrentPosition - width].classList.contains(borderClass) && (!cells[ghostCurrentPosition - width].classList.contains(tarantulaClass) || !cells[ghostCurrentPosition].classList.contains(scorpianClass) || !cells[ghostCurrentPosition].classList.contains(waspClass))) {
       // console.log('up clear')
       return true
     }
@@ -311,7 +338,7 @@ function init() {
 
   // check tile below is clear
   function isDownClear (ghostCurrentPosition) {
-    if (!cells[ghostCurrentPosition + width].classList.contains(borderClass) && (!cells[ghostCurrentPosition + width].classList.contains(tarantulaClass) || !cells[ghostCurrentPosition].classList.contains(scorpianClass))) {
+    if (!cells[ghostCurrentPosition + width].classList.contains(borderClass) && (!cells[ghostCurrentPosition + width].classList.contains(tarantulaClass) || !cells[ghostCurrentPosition].classList.contains(scorpianClass) || !cells[ghostCurrentPosition].classList.contains(waspClass))) {
       // console.log('down clear')
       return true
     }
@@ -767,6 +794,148 @@ function init() {
     setCharacterCoordinates(tarantulaClass, tarantulaCurrentPosition, c, d)
   }
 
+  // move the wasp intelligently
+  function moveWasp() {
+    const down = waspCurrentPosition + width
+    const left = waspCurrentPosition - 1
+    const right = waspCurrentPosition + 1
+    const up = waspCurrentPosition - width
+
+    removeGhost(waspCurrentPosition, waspClass)
+
+    // checks movement through tunnel
+    if (waspCurrentPosition === 55 && x2 > e && waspPreviousPosition !== 65) {
+      waspPreviousPosition = waspCurrentPosition
+      waspCurrentPosition = 65
+    } else if (waspCurrentPosition === 65 && x2 < e && waspPreviousPosition !== 55) {
+      waspPreviousPosition = waspCurrentPosition
+      waspCurrentPosition = 55
+    } else if (y > f) {
+      // console.log('ghost higher than player')      
+      if (isDownClear(waspCurrentPosition) === true && down !== waspPreviousPosition) { // check tile below is clear, check previous position
+        moveCharacter('down', waspClass, waspPreviousPosition, waspCurrentPosition) // move down
+      } else { // if below is blocked, do the following
+        if (x2 > e) { // if ghost left of player
+          // console.log('ghost left of player')
+          if (isRightClear(waspCurrentPosition) === true && right !== waspPreviousPosition) { // check tile to right is clear
+            moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move right
+          } else { // if down and right is blocked
+            // console.log('border to right')
+            if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // check tile to left is clear
+              moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move left
+            } else { // if down, right and left is blocked
+              // console.log('border to left')
+              if (isUpClear(waspCurrentPosition) === true) { // check tile above is clear
+                moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition) // move up
+              } 
+            }
+          }
+        } else if (x2 < e) { // if ghost is to right of player
+          // console.log('ghost to right of player')
+          if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // check tile to left is clear
+            moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move left
+          } else { // if down and left is blocked
+            // console.log('border to left') 
+            if (isRightClear(waspCurrentPosition) === true && right !== waspPreviousPosition) { // check tile to right is clear
+              moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move right
+            } else { // if down, left and right is blocked
+              // console.log('border below')
+              if (isUpClear(waspCurrentPosition) === true) { // check tile above is clear
+                moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition) // move up
+              }
+            }
+          }
+        } else if (x2 === e) { // if player and ghost are in line on y-axis
+          // console.log('ghost directly above player')
+          if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // check if left tile is clear
+            moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move left
+          } else if (isRightClear(waspCurrentPosition) === true && right !== waspPreviousPosition) { // if down and left are blocked, check if right tile is clear
+            moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move right
+          } else if (isUpClear(waspCurrentPosition) === true) { // if down, left and right are blocked, check if tile above is clear
+            moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition) // move up
+          }
+        }
+      }
+    } else if (y < f) { // if ghost is below player
+      // console.log('ghost lower than player')
+      if (isUpClear(waspCurrentPosition) === true && up !== waspPreviousPosition) { // check tile above is clear
+        moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost up 
+      } else { // if above is blocked
+        if (x2 > e) { // check if ghost is left of player
+          // console.log('ghost left of player')
+          if (isRightClear(waspCurrentPosition) === true && right !== waspPreviousPosition) { // check if tile to right is clear
+            // console.log(right)
+            moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost right
+          } else if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // if above and right is blocked, check left is clear
+            moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost left
+          } else if (isDownClear(waspCurrentPosition) === true) { // if above, right and left is blocked, check down is clear
+            moveCharacter('down', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost down
+          } else if (isUpClear(waspCurrentPosition) === true) {
+            moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition)
+          }
+        } else if (x2 < e) { // if ghost is right of player
+          // console.log('ghost right of player')
+          if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // check tile to left is clear
+            moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost left
+          } else if (isDownClear(waspCurrentPosition) === true && down !== waspPreviousPosition) { // if above and left is blocked, check if tile below is clear
+            moveCharacter('down', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost down
+          } else if (isRightClear(waspCurrentPosition) === true) { // if above, left and below is blocked, check right is clear
+            moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost right
+          } else if (isUpClear(waspCurrentPosition) === true) {
+            moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition)
+          }
+        } else if (x2 === e) { // if ghost and player are in line on the y-axis
+          // console.log('ghost on same vertical plane as player')
+          if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // check left tile is clear
+            // console.log('move left')
+            moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost left
+          } else if (isRightClear(waspCurrentPosition) === true && right !== scorpianPreviousPosition) { // if above and left tile is blocked, check right is clear
+            moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost right
+          } else if (isDownClear(waspCurrentPosition) === true && down !== waspPreviousPosition) { // if above, left and right tile is blocked, check below is clear 
+            moveCharacter('down', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost down
+          } else if (isUpClear(waspCurrentPosition) === true) {
+            moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition)
+          }
+        }
+      }
+    } else if (y === f) { // if ghost and player are in line on x-axis
+      // console.log('ghost on same horizontal plane as player')
+      if (x2 > e) { // if ghost to left of player
+        // console.log('ghost left of player')
+        if (isRightClear(waspCurrentPosition) === true && right !== waspPreviousPosition) { // check tile to right is clear
+          moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move right
+        }  else if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // if right is blocked, check tile to left is clear
+          moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move left
+        } else if (isDownClear(waspCurrentPosition) === true && down !== waspPreviousPosition) { // if right and left blocked, check tile below is clear
+          moveCharacter('down', waspClass, waspPreviousPosition, waspCurrentPosition) // move down
+        } else if (isUpClear(waspCurrentPosition) === true) { // if right, left and down blocked, check tile above is clear
+          moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition) // move up
+        }
+      } else if (x2 < e) { // if ghost to right of player
+        // console.log('ghost right of player')
+        if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // check left is clear
+          moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move left
+        } else if (isDownClear(waspCurrentPosition) === true && down !== waspPreviousPosition) { // if left blocked, check down is clear
+          // console.log('left not clear')
+          moveCharacter('down', waspClass, waspPreviousPosition, waspCurrentPosition) // move down
+        } else if (isRightClear(waspCurrentPosition) === true && right !== waspPreviousPosition) { // if left and down blocked, check right is clear
+          // console.log('down not clear')
+          moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move right
+        } else if (isUpClear(waspCurrentPosition) === true) { // if left, down and right blocked, check up is clear
+          // console.log('right not clear, moving up')
+          moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition) // move up
+        }
+      }
+    }  
+  
+    addGhost(waspCurrentPosition, waspClass)
+    if (cells[waspCurrentPosition].classList.contains(playerClass)) {
+      touchGhost(playerCurrentPosition)
+      playerCurrentPosition = playerStartPosition
+    }
+    setCharacterCoordinates(waspClass, waspCurrentPosition, e, f)
+  }
+
   // eat fruit
   function eatFruit(playerCurrentPosition) {
     if (cells[playerCurrentPosition].classList.contains(foodClass)) {
@@ -872,6 +1041,7 @@ function init() {
       // moveGhost(scorpianClass, scorpianCurrentPosition, scorpianPreviousPosition, x, y, a, b)
       console.log('move called')
       moveTarantula()
+      moveWasp()
     }, 500)
   }
 
