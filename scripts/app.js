@@ -11,6 +11,7 @@ function init() {
   const cellCount = width * width
   const cells = []
   let pauseStatus = false
+  let gameStarted = false
 
   // player info
   const playerClass = 'player'
@@ -97,6 +98,22 @@ function init() {
     addGhost(tarantulaStartPosition, tarantulaClass)
   }
 
+  function handleEscapeKey(event) {
+    console.log('escape key listening')
+    const key = event.keyCode
+    if (key === 27) {
+      displayHelp.classList.add(hiddenClass)
+      if (pauseStatus === true && gameStarted === true) {
+        move = setInterval(() => {
+          moveScorpian()
+          moveTarantula()
+        }, 500)
+        pauseStatus = false
+      }
+    }
+    console.log('pause status ->', pauseStatus)
+  }  
+
   // add the player 
   function addPlayer(position) {
     cells[position].classList.add(playerClass)
@@ -157,18 +174,6 @@ function init() {
     // prevents scrolling
     if (key === 38 || key === 40) {
       event.preventDefault()
-    }
-
-    // closes help
-    if (key === 27) {
-      displayHelp.classList.add(hiddenClass)
-      if (pauseStatus === true) {
-        move = setInterval(() => {
-          moveScorpian()
-          moveTarantula()
-        }, 500)
-        pauseStatus = false
-      }
     }
 
     // moves the player
@@ -741,6 +746,7 @@ function init() {
     // removes start button
     event.target.classList.add(hiddenClass)
     reset.classList.remove(hiddenClass)
+    gameStarted = true
 
     // starts player moving
     document.addEventListener('keydown', handleKeyDown)
@@ -755,7 +761,7 @@ function init() {
 
   // reset game 
   function handleReset (event) {
-    console.log('reset')
+    // console.log('reset')
     clearInterval(move)
     removePlayer(playerCurrentPosition)
     playerCurrentPosition = playerStartPosition
@@ -767,6 +773,7 @@ function init() {
     grabLives[1].classList.remove(hiddenClass)
     event.target.classList.add(hiddenClass)
     start.classList.remove(hiddenClass)
+    gameStarted = false
 
     for (let i = 0; i < cellCount; i ++) {
       if (i === 82) {
@@ -783,9 +790,11 @@ function init() {
   // help
   function handleHelp () {
     displayHelp.classList.remove('hidden')
-    if (pauseStatus === false) {
+    if (pauseStatus === false && gameStarted === true) {
       clearInterval(move)
       pauseStatus = true
+      start.classList.add(hiddenClass)
+      reset.classList.remove(hiddenClass)
     }
   }
 
@@ -794,6 +803,7 @@ function init() {
 
   // ! event listeners
 
+  document.addEventListener('keydown', handleEscapeKey)
   start.addEventListener('click', handleStart)
   reset.addEventListener('click', handleReset)
   help.addEventListener('click', handleHelp)
