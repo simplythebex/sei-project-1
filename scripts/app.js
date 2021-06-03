@@ -5,14 +5,15 @@ function init() {
   const start = document.querySelector('.start')
   const reset = document.querySelector('.reset')
   const help = document.querySelector('.help')
-  const audio = document.querySelector('audio')
-  // const sound = document.querySelector('.sound')
+  const audio = document.querySelector('#audio')
+  const backgroundAudio = document.querySelector('#background-audio')
+  const sound = document.querySelector('.sound')
   const width = 11
   const cellCount = width * width
   const cells = []
   let pauseStatus = false
   let gameStarted = false
-
+  let soundOn = true
   let randomIndex
 
   // player info
@@ -156,6 +157,9 @@ function init() {
           moveWasp()
           // moveGhost(scorpianClass, scorpianCurrentPosition, scorpianPreviousPosition, x, y, a, b)
         }, 500)
+        if (soundOn === true) {
+          backgroundAudio.play()
+        }
         pauseStatus = false
         console.log('pause status on escape', pauseStatus)
       }
@@ -240,6 +244,7 @@ function init() {
     if (key === 80) { 
       if (pauseStatus === false) {
         clearInterval(move)
+        backgroundAudio.pause()
         pauseStatus = true
       } else {
         move = setInterval(() => {
@@ -248,6 +253,9 @@ function init() {
           moveTarantula()
           moveWasp()
         }, 500)
+        if (soundOn === true) {
+          backgroundAudio.play()
+        }
         pauseStatus = false
       }
       console.log('pause status on pause', pauseStatus)
@@ -842,8 +850,6 @@ function init() {
   function eatFruit(playerCurrentPosition) {
     if (cells[playerCurrentPosition].classList.contains(foodClass)) {
       cells[playerCurrentPosition].classList.remove(foodClass)
-      audio.src = 'styles/sounds/341695__projectsu012__coins-1.mp3'
-      audio.play()
       score += 10
       updateScore(score)
       fruitCheck()
@@ -866,7 +872,9 @@ function init() {
       increaseLives(lives)
       lives++
       audio.src = 'styles/sounds/acnl_-_exclamation.mp3'
-      audio.play()
+      if (soundOn === true) {
+        audio.play()
+      }
     }
   }
 
@@ -875,7 +883,9 @@ function init() {
     if (cells[playerCurrentPosition].classList.contains(netClass)) {
       hideCount = 0
       audio.src = 'styles/sounds/acnl_-_exclamation.mp3'
-      audio.play()
+      if (soundOn === true) {
+        audio.play()
+      }
       cells[playerCurrentPosition].classList.remove(netClass)
       ghostMode = 'hide mode'
       checkGhostMode(scorpianClass, scorpianCurrentPosition)
@@ -913,7 +923,9 @@ function init() {
     if (ghostMode === 'split mode' || ghostMode === 'chase mode') {
       audio.src = './styles/sounds/animal-crossing-shocked-sound-effect.mp3'
       console.log(audio)
-      audio.play()
+      if (soundOn === true) {
+        audio.play()
+      }
       decreaseLives(lives)
       lives--
       clearInterval(move)
@@ -929,6 +941,10 @@ function init() {
       gameOver(score, lives)
     } else if (ghostMode === 'hide mode') {
       score += 200
+      audio.src = 'styles/sounds/animal_crossing.mp3'
+      if (soundOn === true) {
+        audio.play()
+      }
       updateScore(score)
       if (cells[playerCurrentPosition].classList.contains(scorpianClass)) {
         resetGhost(scorpianClass, scorpianCurrentPosition, scorpianStartPosition)
@@ -956,8 +972,11 @@ function init() {
       grid.classList.remove(glowClass)
       result.innerText = `You win! Your score: ${score}`
       document.removeEventListener('keydown', handleKeyDown)
+      backgroundAudio.pause()
       audio.src = 'styles/sounds/new-leaf-alert.mp3'
-      audio.play()
+      if (soundOn === true) {
+        audio.play()
+      }
       if (score > highscore) {
         localStorage.setItem('highscore', score)      
       }
@@ -974,9 +993,12 @@ function init() {
       }
       result.classList.remove('hidden')
       grid.classList.remove(glowClass)
+      backgroundAudio.pause()
       result.innerText = `Game Over! Your score: ${score}`
       audio.src = 'styles/sounds/animal-crossing-nh.mp3'
-      audio.play()
+      if (soundOn === true) {
+        audio.play()
+      }
       if (score > highscore) {
         localStorage.setItem('highscore', score)      
       }
@@ -1013,10 +1035,13 @@ function init() {
       // console.log('hide mode on')
       if (hideCount < 8) {
         grid.classList.add(glowClass)
+        result.classList.remove(hiddenClass)
+        result.innerText = 'Catch the ghosts while you can!'
         moveGhostRandomly(ghostClass, ghostCurrentPosition)
       } else {
         // clearInterval(hideTimer)
         ghostMode = 'chase mode'
+        result.classList.add(hiddenClass)
       }
     }
   }
@@ -1079,6 +1104,10 @@ function init() {
 
   // ! start game
   function handleStart (event) {
+    // adds background audio and plays
+    if (soundOn === true) {
+      backgroundAudio.play()
+    }
     // removes start button
     event.target.classList.add(hiddenClass)
     reset.classList.remove(hiddenClass)
@@ -1116,6 +1145,7 @@ function init() {
     gameStarted = false
     grid.classList.remove(glowClass)
     clearInterval(hideTimer)
+    backgroundAudio.pause()
 
     for (let i = 0; i < cellCount; i ++) {
       if (i === 27) {
@@ -1135,11 +1165,26 @@ function init() {
   function handleHelp () {
     displayHelp.classList.remove('hidden')
     console.log('pause status on help', pauseStatus)
+    backgroundAudio.pause()
     if (pauseStatus === false && gameStarted === true) {
       clearInterval(move)
       pauseStatus = true
       start.classList.add(hiddenClass)
       reset.classList.remove(hiddenClass)
+    }
+  }
+
+  function handleSound () {
+    console.log('sound clicked')
+    if (soundOn === true) {
+      soundOn = false
+      backgroundAudio.pause()
+      audio.pause()
+    } else {
+      soundOn = true
+      if (gameStarted === true) {
+        backgroundAudio.play()
+      }
     }
   }
 
@@ -1152,7 +1197,7 @@ function init() {
   start.addEventListener('click', handleStart)
   reset.addEventListener('click', handleReset)
   help.addEventListener('click', handleHelp)
-  // document.addEventListener('click', handleSound)
+  sound.addEventListener('click', handleSound)
 
 }
 
