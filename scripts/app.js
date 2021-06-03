@@ -5,7 +5,7 @@ function init() {
   const start = document.querySelector('.start')
   const reset = document.querySelector('.reset')
   const help = document.querySelector('.help')
-  // const audio = document.querySelector('audio')
+  const audio = document.querySelector('audio')
   // const sound = document.querySelector('.sound')
   const width = 11
   const cellCount = width * width
@@ -55,6 +55,7 @@ function init() {
   const foodClass = 'food'
   let score = 0
   const grabScore = document.querySelector('.score p')
+  const highscore = localStorage.getItem('highscore')
 
   // fossil info
   const fossilClass = 'fossil'
@@ -841,6 +842,8 @@ function init() {
   function eatFruit(playerCurrentPosition) {
     if (cells[playerCurrentPosition].classList.contains(foodClass)) {
       cells[playerCurrentPosition].classList.remove(foodClass)
+      audio.src = 'styles/sounds/341695__projectsu012__coins-1.mp3'
+      audio.play()
       score += 10
       updateScore(score)
       fruitCheck()
@@ -862,6 +865,8 @@ function init() {
       cells[playerCurrentPosition].classList.remove(fossilClass)
       increaseLives(lives)
       lives++
+      audio.src = 'styles/sounds/acnl_-_exclamation.mp3'
+      audio.play()
     }
   }
 
@@ -869,6 +874,8 @@ function init() {
   function getNet(playerCurrentPosition) {
     if (cells[playerCurrentPosition].classList.contains(netClass)) {
       hideCount = 0
+      audio.src = 'styles/sounds/acnl_-_exclamation.mp3'
+      audio.play()
       cells[playerCurrentPosition].classList.remove(netClass)
       ghostMode = 'hide mode'
       checkGhostMode(scorpianClass, scorpianCurrentPosition)
@@ -904,6 +911,9 @@ function init() {
   // caught by ghost
   function touchGhost(playerCurrentPosition) {
     if (ghostMode === 'split mode' || ghostMode === 'chase mode') {
+      audio.src = './styles/sounds/animal-crossing-shocked-sound-effect.mp3'
+      console.log(audio)
+      audio.play()
       decreaseLives(lives)
       lives--
       clearInterval(move)
@@ -937,12 +947,20 @@ function init() {
     cells.forEach(cell => {
       if (cell.classList.contains(foodClass)) {
         fruitCount += 1
+        console.log('fruit', fruitCount)
       }
     }) 
     if (fruitCount === 0) {
       clearInterval(move)
       result.classList.remove('hidden')
+      grid.classList.remove(glowClass)
       result.innerText = `You win! Your score: ${score}`
+      document.removeEventListener('keydown', handleKeyDown)
+      audio.src = 'styles/sounds/new-leaf-alert.mp3'
+      audio.play()
+      if (score > highscore) {
+        localStorage.setItem('highscore', score)      
+      }
     }
   }
 
@@ -950,11 +968,18 @@ function init() {
   function gameOver(score, lives) {
     if (lives === 0) {
       clearInterval(move)
+      document.removeEventListener('keydown', handleKeyDown)
       for (let i = 0; i < cellCount; i++) {
         cells[i].classList.remove(playerClass)
       }
       result.classList.remove('hidden')
+      grid.classList.remove(glowClass)
       result.innerText = `Game Over! Your score: ${score}`
+      audio.src = 'styles/sounds/animal-crossing-nh.mp3'
+      audio.play()
+      if (score > highscore) {
+        localStorage.setItem('highscore', score)      
+      }
     }
   }
 
@@ -1059,7 +1084,6 @@ function init() {
     reset.classList.remove(hiddenClass)
     gameStarted = true
     pauseStatus = false
-
     // starts player moving
     document.addEventListener('keydown', handleKeyDown)
 
@@ -1090,13 +1114,15 @@ function init() {
     event.target.classList.add(hiddenClass)
     start.classList.remove(hiddenClass)
     gameStarted = false
+    grid.classList.remove(glowClass)
+    clearInterval(hideTimer)
 
     for (let i = 0; i < cellCount; i ++) {
       if (i === 27) {
         cells[i].classList.add(fossilClass)
       } else if (i === 20 || i === 100) {
         cells[i].classList.add(netClass)
-      } else if (!cells[i].classList.contains(borderClass) && !cells[i].classList.contains(fossilClass) && !cells[i].classList.contains(netClass) && i !== 59 && i !== 60 && i !== 61) {
+      } else if (!cells[i].classList.contains(borderClass) && !cells[i].classList.contains(fossilClass) && !cells[i].classList.contains(netClass) && !cells[i].classList.contains(fenceClass) && i !== 59 && i !== 60 && i !== 61) {
         cells[i].classList.add(foodClass)
       }
     }
