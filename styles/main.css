@@ -245,6 +245,13 @@ img {
   background-position: center;
 }
 
+.fence {
+  background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/d/d0/NH-Barbed-wire_fence.png/revision/latest?cb=20200326070702);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 
 
 
