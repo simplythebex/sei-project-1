@@ -67,8 +67,8 @@ function init() {
   let count = 0
 
   // player coordinates
-  let x = 1
-  let y = 1
+  let x = 5
+  let y = 7
 
   // scorpian coordinates
   let a = 5
@@ -185,7 +185,6 @@ function init() {
     addGhost(scorpianCurrentPosition, scorpianClass)
     addGhost(tarantulaCurrentPosition, tarantulaClass)
     addGhost(waspCurrentPosition, waspClass)
-    count = 0
     startTimer()
     ghostMode = 'split mode'
   }
@@ -937,7 +936,7 @@ function init() {
 
     // changes mode
     ghostMode = 'split mode'
-    // checkGhostMode()
+    count = 0
 
     // calls move
     move = setInterval(() => {
