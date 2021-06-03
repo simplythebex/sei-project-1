@@ -129,6 +129,10 @@ img {
   background-color: #63b969;
 }
 
+.glow {
+  box-shadow: 0 0 40px 20px white;
+}
+
 .grid div {
   /* border: 1px solid lightgrey; */
   flex-grow: 1;
@@ -205,19 +209,19 @@ img {
 .grid div.scorpian {
   background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/3/34/NH-Icon-scorpion.png/revision/latest?cb=20200401005429);
   background-repeat: no-repeat;
-  background-size: 70%;
+  background-size: 60%;
 }
 
 .grid div.tarantula {
   background-image: url(https://dodo.ac/np/images/thumb/b/bf/Tarantula_NH.png/200px-Tarantula_NH.png);
   background-repeat: no-repeat;
-  background-size: 70%;
+  background-size: 60%;
 }
 
 .grid div.wasp {
   background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/9/9e/NH-Icon-wasp.png/revision/latest?cb=20200401005428);
   background-repeat: no-repeat;
-  background-size: 70%;
+  background-size: 60%;
 }
 
 .food {

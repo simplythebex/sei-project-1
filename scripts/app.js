@@ -61,6 +61,7 @@ function init() {
 
   // net info
   const netClass = 'net'
+  const glowClass = 'glow'
 
   // hide classes
   const hiddenClass = 'hidden'
@@ -195,6 +196,12 @@ function init() {
     addGhost(waspCurrentPosition, waspClass)
     startTimer()
     ghostMode = 'split mode'
+  }
+
+  function resetGhost(ghostClass, ghostCurrentPosition, ghostStartPosition) {
+    removeGhost(ghostCurrentPosition, ghostClass)
+    ghostCurrentPosition = ghostStartPosition
+    addGhost(ghostCurrentPosition, ghostClass)
   }
 
   // eat fruit/fossil
@@ -507,7 +514,9 @@ function init() {
     addGhost(scorpianCurrentPosition, scorpianClass)
     if (cells[scorpianCurrentPosition].classList.contains(playerClass)) {
       touchGhost(playerCurrentPosition)
-      playerCurrentPosition = playerStartPosition
+      if (ghostMode === 'split class' || ghostMode === 'chase class') {
+        playerCurrentPosition = playerStartPosition
+      }
     }
     setCharacterCoordinates(scorpianClass, scorpianCurrentPosition, a, b)
   }
@@ -651,7 +660,9 @@ function init() {
     addGhost(tarantulaCurrentPosition, tarantulaClass)
     if (cells[tarantulaCurrentPosition].classList.contains(playerClass)) {
       touchGhost(playerCurrentPosition)
-      playerCurrentPosition = playerStartPosition
+      if (ghostMode === 'split class' || ghostMode === 'chase class') {
+        playerCurrentPosition = playerStartPosition
+      }
     }
     setCharacterCoordinates(tarantulaClass, tarantulaCurrentPosition, c, d)
   }
@@ -794,7 +805,9 @@ function init() {
     addGhost(waspCurrentPosition, waspClass)
     if (cells[waspCurrentPosition].classList.contains(playerClass)) {
       touchGhost(playerCurrentPosition)
-      playerCurrentPosition = playerStartPosition
+      if (ghostMode === 'split class' || ghostMode === 'chase class') {
+        playerCurrentPosition = playerStartPosition
+      }
     }
     setCharacterCoordinates(waspClass, waspCurrentPosition, e, f)
   }
@@ -833,10 +846,7 @@ function init() {
       hideCount = 0
       cells[playerCurrentPosition].classList.remove(netClass)
       ghostMode = 'hide mode'
-      startHideTimer()
-      if (hideCount > 8) {
-        ghostMode = 'chase mode'
-      }
+      checkGhostMode()
     }
   }
 
@@ -863,10 +873,22 @@ function init() {
 
   // caught by ghost
   function touchGhost() {
-    decreaseLives(lives)
-    lives--
-    resetAllCharacters()
-    gameOver(score, lives)
+    if (ghostMode === 'split mode' || ghostMode === 'chase mode') {
+      decreaseLives(lives)
+      lives--
+      resetAllCharacters()
+      gameOver(score, lives)
+    } else if (ghostMode === 'hide mode') {
+      score += 200
+      updateScore(score)
+      if (cells[playerCurrentPosition].classList.contains(scorpianClass)) {
+        resetGhost(scorpianClass, scorpianCurrentPosition, scorpianStartPosition)
+      } else if (cells[playerCurrentPosition].classList.contains(tarantulaClass)) {
+        resetGhost(tarantulaClass, tarantulaCurrentPosition, tarantulaStartPosition)
+      } else if (cells[playerCurrentPosition].classList.contains(waspClass)) {
+        resetGhost(waspClass, waspCurrentPosition, waspStartPosition)
+      }
+    }
   }
 
   // checks if game is won
@@ -902,7 +924,8 @@ function init() {
 
   function checkGhostMode () {
     if (ghostMode === 'split mode') {
-      console.log('split mode on')
+      // console.log('split mode on')
+      grid.classList.remove(glowClass)
       startTimer()
       if (count < 5) {
         waspXGoal = 1
@@ -915,7 +938,8 @@ function init() {
         ghostMode = 'chase mode'
       }
     } else if (ghostMode === 'chase mode') {
-      console.log('chase mode on')
+      // console.log('chase mode on')
+      grid.classList.remove(glowClass)
       waspXGoal = x2
       waspYGoal = y
       tarantulaXGoal = x1
@@ -923,24 +947,31 @@ function init() {
       scorpianXGoal = x
       scorpianYGoal = y
     } else if (ghostMode === 'hide mode') {
-      console.log('hide mode on')
-      waspXGoal = 4
-      waspYGoal = 5
-      tarantulaXGoal = 6
-      tarantulaYGoal = 5
-      scorpianXGoal = 5
-      scorpianYGoal = 5
+      // console.log('hide mode on')
+      // grid.classList.add(glowClass)
+      startHideTimer()
+      if (hideCount < 8) {
+        grid.classList.add(glowClass)
+        waspXGoal = 4
+        waspYGoal = 5
+        tarantulaXGoal = 6
+        tarantulaYGoal = 5
+        scorpianXGoal = 5
+        scorpianYGoal = 5
+      } else {
+        clearInterval(hideTimer)
+        ghostMode = 'chase mode'
+      }
     }
   }
 
   function startTimer() {
     counterTimer = setInterval(() => {
       count++
-      // console.log(count)
       if (count > 5) {
         clearInterval(counterTimer)
       } else {
-        console.log(count)
+        console.log('split count ->', count)
       }
     }, 1000)
   }
