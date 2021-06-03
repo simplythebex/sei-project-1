@@ -5,6 +5,7 @@ function init() {
   const start = document.querySelector('.start')
   const reset = document.querySelector('.reset')
   const help = document.querySelector('.help')
+  const hide = document.querySelector('.display-hide')
   const audio = document.querySelector('#audio')
   const backgroundAudio = document.querySelector('#background-audio')
   const sound = document.querySelector('.sound')
@@ -1035,13 +1036,12 @@ function init() {
       // console.log('hide mode on')
       if (hideCount < 8) {
         grid.classList.add(glowClass)
-        result.classList.remove(hiddenClass)
-        result.innerText = 'Catch the ghosts while you can!'
+        hide.classList.remove(hiddenClass)
         moveGhostRandomly(ghostClass, ghostCurrentPosition)
       } else {
         // clearInterval(hideTimer)
         ghostMode = 'chase mode'
-        result.classList.add(hiddenClass)
+        hide.classList.add(hiddenClass)
       }
     }
   }
@@ -1178,10 +1178,12 @@ function init() {
     console.log('sound clicked')
     if (soundOn === true) {
       soundOn = false
+      sound.innerText = 'Sound 🔈'
       backgroundAudio.pause()
       audio.pause()
     } else {
       soundOn = true
+      sound.innerText = 'Sound 🔇'
       if (gameStarted === true) {
         backgroundAudio.play()
       }

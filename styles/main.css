@@ -157,7 +157,7 @@ img {
   top: 457px;
 }
 
-.display-help {
+.display-help{
   width: 25%;
   text-align: center;
   padding: 27px;
@@ -171,6 +171,22 @@ img {
   position: absolute;
   margin-left: 320px;
   top: 360px;
+}
+
+.display-hide {
+  width: 20%;
+  text-align: center;
+  padding: 27px;
+  color: #72413b;
+  border: 2px solid #f2d9c7;
+  background-color: #f8a7b0;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 900;
+  font-size: 1.2em;
+  border-radius: 20px;
+  position: absolute;
+  margin-left: 355px;
+  top: 444px;
 }
 
 .display-help p {
