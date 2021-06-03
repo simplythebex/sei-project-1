@@ -199,6 +199,7 @@ img {
   background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/c/c7/NH-Tree.png/revision/latest/scale-to-width-down/1930?cb=20200415131758);
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: center;
 }
 
 .grid div.scorpian {
@@ -230,6 +231,13 @@ img {
   background-image: url(https://i0.wp.com/nookipedia.com/w/images/5/57/Fossil_NH_Inv_Icon.png?resize=650,400);
   background-repeat: no-repeat;
   background-size: 70%;
+  background-position: center;
+}
+
+.net {
+  background-image: url(https://www.models-resource.com/resources/big_icons/37/36699.png );
+  background-repeat: no-repeat;
+  background-size: 110%;
   background-position: center;
 }
 

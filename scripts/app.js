@@ -59,12 +59,18 @@ function init() {
   let lives = 2
   const grabLives = document.querySelectorAll('.life')
 
+  // net info
+  const netClass = 'net'
+
   // hide classes
   const hiddenClass = 'hidden'
 
   // timer info
   let counterTimer
   let count = 0
+
+  let hideTimer
+  let hideCount = 0
 
   // player coordinates
   let x = 5
@@ -114,7 +120,9 @@ function init() {
           cell.classList.add(borderClass)
         } else if (i === 27) {
           cell.classList.add(fossilClass)
-        } else if (!cell.classList.contains(borderClass) && !cell.classList.contains(fossilClass)) {
+        } else if (i === 20 || i === 100) {
+          cell.classList.add(netClass)
+        } else if (!cell.classList.contains(borderClass) && !cell.classList.contains(fossilClass) && !cell.classList.contains(netClass)) {
           cell.classList.add(foodClass)
         }
 
@@ -193,6 +201,7 @@ function init() {
   function handleInteraction(playerCurrentPosition) {
     eatFruit(playerCurrentPosition)
     getFossil(playerCurrentPosition)
+    getNet(playerCurrentPosition)
   }
 
   // key events
@@ -818,6 +827,19 @@ function init() {
     }
   }
 
+  // get net
+  function getNet(playerCurrentPosition) {
+    if (cells[playerCurrentPosition].classList.contains(netClass)) {
+      hideCount = 0
+      cells[playerCurrentPosition].classList.remove(netClass)
+      ghostMode = 'hide mode'
+      startHideTimer()
+      if (hideCount > 8) {
+        ghostMode = 'chase mode'
+      }
+    }
+  }
+
   // ! update life display:
 
   // increases life display 
@@ -923,6 +945,18 @@ function init() {
     }, 1000)
   }
 
+  function startHideTimer() {
+    hideTimer = setInterval(() => {
+      hideCount++
+      if (hideCount > 8) {
+        clearInterval(hideTimer)
+        ghostMode = 'chase mode'
+      } else {
+        console.log('hideCount', hideCount)
+      }
+    }, 1000)
+  }
+
   // ! start game
   function handleStart (event) {
     // removes start button
@@ -964,7 +998,9 @@ function init() {
     for (let i = 0; i < cellCount; i ++) {
       if (i === 27) {
         cells[i].classList.add(fossilClass)
-      } else if (!cells[i].classList.contains(borderClass) && !cells[i].classList.contains(fossilClass)) {
+      } else if (i === 20 || i === 100) {
+        cells[i].classList.add(netClass)
+      } else if (!cells[i].classList.contains(borderClass) && !cells[i].classList.contains(fossilClass) && !cells[i].classList.contains(netClass)) {
         cells[i].classList.add(foodClass)
       }
     }
