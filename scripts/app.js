@@ -5,7 +5,6 @@ function init() {
   const start = document.querySelector('.start')
   const reset = document.querySelector('.reset')
   const help = document.querySelector('.help')
-  // const hide = document.querySelector('.display-hide')
   const audio = document.querySelector('#audio')
   const backgroundAudio = document.querySelector('#background-audio')
   const sound = document.querySelector('.sound')
@@ -57,7 +56,10 @@ function init() {
   const foodClass = 'food'
   let score = 0
   const grabScore = document.querySelector('.score p')
-  const highscore = localStorage.getItem('highscore')
+  const displayHighscore = document.querySelector('.high-score')
+
+  window.localStorage.setItem('highscore', 0)
+  displayHighscore.innerText = localStorage.getItem('highscore')
 
   // fossil info
   const fossilClass = 'fossil'
@@ -972,6 +974,14 @@ function init() {
     }
   }
 
+  function setHighscore (score) {
+
+    if (score > localStorage.getItem('highscore')) {
+      window.localStorage.setItem('highscore', score)
+      displayHighscore.innerText = localStorage.getItem('highscore')
+    }
+  }
+
   // checks if game is won
   let fruitCount = 0
   function fruitCheck () {
@@ -995,9 +1005,7 @@ function init() {
       if (soundOn === true) {
         audio.play()
       }
-      if (score > highscore) {
-        localStorage.setItem('highscore', score)      
-      }
+      setHighscore(score)      
     }
   }
 
@@ -1019,9 +1027,7 @@ function init() {
       if (soundOn === true) {
         audio.play()
       }
-      if (score > highscore) {
-        localStorage.setItem('highscore', score)      
-      }
+      setHighscore(score)          
     }
   }
 

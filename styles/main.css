@@ -240,9 +240,26 @@ p.help {
   display: none;
 }
 
-.padding {
-  width: 200px;
-  height: 275px;
+.scores {
+  width: 160px;
+  height: 120px;
+  margin: 20px;
+  padding: 20px;
+  color: #72413b;
+  border: 2px solid #f2d9c7;
+  background-color: #f8a7b0;
+  font-family: 'Comic Neue', cursive;
+  font-weight: 900;
+  font-size: 1.2em;
+  border-radius: 20px;
+}
+
+.scores p {
+  text-align: center;
+}
+
+.high-score p {
+  text-align: center;
 }
 
 
