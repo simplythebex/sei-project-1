@@ -271,59 +271,59 @@ p.welcome {
 /* characters */
 
 .grid div.player {
-  background-image: url(https://media2.giphy.com/media/cMKU6Dan3r3wzGOuW5/giphy.gif?cid=6c09b952q03gb3xhkua9cn8doqksaf4qgbcamz2wux9wwlil&rid=giphy.gif&ct=s);
+  background-image: url(./images/isabelle.webp);
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .grid div.border {
-  background-image: url(https://64.media.tumblr.com/fc41c64d082e20f52031ab7d1d05d288/bf107ab3be326af7-bd/s1280x1920/c2d1aaad255c51eecada4c2bf3bbe9e7c3eaab26.png);
+  background-image: url(./images/tree.png);
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
 }
 
 .grid div.scorpian {
-  background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/3/34/NH-Icon-scorpion.png/revision/latest?cb=20200401005429);
+  background-image: url(./images/scorpian.png);
   background-repeat: no-repeat;
   background-size: 60%;
 }
 
 .grid div.tarantula {
-  background-image: url(https://dodo.ac/np/images/thumb/b/bf/Tarantula_NH.png/200px-Tarantula_NH.png);
+  background-image: url(./images/tarantula.png);
   background-repeat: no-repeat;
   background-size: 60%;
 }
 
 .grid div.wasp {
-  background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/9/9e/NH-Icon-wasp.png/revision/latest?cb=20200401005428);
+  background-image: url(./images/wasp.png);
   background-repeat: no-repeat;
   background-size: 60%;
 }
 
 .food {
-  background-image: url(https://media0.giphy.com/media/ftqucH6K7xo4DBlPRF/giphy.gif?cid=6c09b9529vs9x9zvq2oke4ubywuy3os18wn175n6uotn7z3y&rid=giphy.gif);
+  background-image: url(./images/money.webp);
   background-repeat: no-repeat;
   background-size: 70%;
   background-position: center;
 }
 
 .fossil {
-  background-image: url(https://i0.wp.com/nookipedia.com/w/images/5/57/Fossil_NH_Inv_Icon.png?resize=650,400);
+  background-image: url(./images/fossil.png);
   background-repeat: no-repeat;
   background-size: 70%;
   background-position: center;
 }
 
 .net {
-  background-image: url(https://www.models-resource.com/resources/big_icons/37/36699.png );
+  background-image: url(./images/net.png);
   background-repeat: no-repeat;
   background-size: 110%;
   background-position: center;
 }
 
 .fence {
-  background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/d/d0/NH-Barbed-wire_fence.png/revision/latest?cb=20200326070702);
+  background-image: url(./images/fence.png);
   background-repeat: no-repeat;
   background-size: 70%;
   background-position: center;
