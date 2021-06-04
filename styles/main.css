@@ -279,7 +279,7 @@ p.welcome {
 .grid div.border {
   background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/c/c7/NH-Tree.png/revision/latest/scale-to-width-down/1930?cb=20200415131758);
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 70%;
   background-position: center;
 }
 
@@ -325,19 +325,9 @@ p.welcome {
 .fence {
   background-image: url(https://static.wikia.nocookie.net/animalcrossing/images/d/d0/NH-Barbed-wire_fence.png/revision/latest?cb=20200326070702);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 70%;
   background-position: center;
 }
-
-.balloon {
-  background-image: url(https://cdn.designbyhumans.com/file/module/content/135/balloon-gift.png);
-  background-repeat: no-repeat;
-  background-size: 50%;
-  background-position: center;
-}
-
-
-
 
 /* gifs: */
 /* https://data.whicdn.com/images/243726220/original.gif */
