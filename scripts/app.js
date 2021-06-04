@@ -151,7 +151,7 @@ function init() {
       }
     }
 
-    center.innerText = 'Welcome to Animal Crossing, PacMan Edition. Press Start to begin!'
+    center.innerText = 'Welcome to Animal Crossing, PacMan Edition. \n Press Start to begin!'
     centerText.classList.remove(hiddenClass)
     center.classList.add('welcome')
 
