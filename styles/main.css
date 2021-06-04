@@ -190,9 +190,8 @@ img {
 }
 
 .grid div .center-text {
-  width: 15%;
   text-align: center;
-  padding: 40px 133px;
+  padding: 45px 133px;
   color: #72413b;
   border: 2px solid #f2d9c7;
   background-color: #f8a7b0;
@@ -225,6 +224,12 @@ p.lose {
 p.help {
   top: 25px;
   right: 78px;
+  position: inherit;
+}
+
+p.welcome {
+  top: 10px;
+  right: 0px;
   position: inherit;
 }
 
@@ -324,6 +329,12 @@ p.help {
   background-position: center;
 }
 
+.balloon {
+  background-image: url(https://cdn.designbyhumans.com/file/module/content/135/balloon-gift.png);
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+}
 
 
 
@@ -348,3 +359,6 @@ https://www.models-resource.com/resources/big_icons/37/36699.png */
 
 /* wasp
 https://static.wikia.nocookie.net/animalcrossing/images/9/9e/NH-Icon-wasp.png/revision/latest?cb=20200401005428 */
+
+/* balloon
+https://cdn.designbyhumans.com/file/module/content/135/balloon-gift.png */
