@@ -893,6 +893,7 @@ function init() {
   // get net
   function getNet(playerCurrentPosition) {
     if (cells[playerCurrentPosition].classList.contains(netClass)) {
+      clearInterval(hideTimer)
       hideCount = 0
       audio.src = 'styles/sounds/acnl_-_exclamation.mp3'
       if (soundOn === true) {
