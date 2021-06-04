@@ -5,7 +5,7 @@ function init() {
   const start = document.querySelector('.start')
   const reset = document.querySelector('.reset')
   const help = document.querySelector('.help')
-  const hide = document.querySelector('.display-hide')
+  // const hide = document.querySelector('.display-hide')
   const audio = document.querySelector('#audio')
   const backgroundAudio = document.querySelector('#background-audio')
   const sound = document.querySelector('.sound')
@@ -103,8 +103,11 @@ function init() {
   // wasp goal coordinates 
   let x2 = 1
 
+  let center
+  let centerText
+
   // results
-  const result = document.querySelector('.display-result')
+  // const result = document.querySelector('.display-result')
 
   // help
   const displayHelp = document.querySelector('.display-help')
@@ -137,6 +140,15 @@ function init() {
         }
 
         grabLives[2].classList.add(hiddenClass)
+
+        if (i === 58) {
+          centerText = document.createElement('div')
+          cell.appendChild(centerText)
+          center = document.createElement('p')
+          centerText.appendChild(center)
+          centerText.classList.add('center-text')
+          centerText.classList.add(hiddenClass)
+        }
       }
     }
 
@@ -893,6 +905,9 @@ function init() {
       checkGhostMode(tarantulaClass, tarantulaCurrentPosition)
       checkGhostMode(waspClass, waspCurrentPosition)
       grid.classList.add(glowClass)
+      center.classList.add('hide')
+      center.innerText = 'Catch the ghosts while you can!'
+      centerText.classList.remove(hiddenClass)
       hideCount = 0
       startHideTimer()
     }
@@ -969,9 +984,11 @@ function init() {
     }) 
     if (fruitCount === 0) {
       clearInterval(move)
-      result.classList.remove('hidden')
       grid.classList.remove(glowClass)
-      result.innerText = `You win! Your score: ${score}`
+      centerText.classList.remove(hiddenClass)
+      gameStarted = false
+      center.innerText = `You win! Your score: ${score}`
+      center.classList.add('win')
       document.removeEventListener('keydown', handleKeyDown)
       backgroundAudio.pause()
       audio.src = 'styles/sounds/new-leaf-alert.mp3'
@@ -992,10 +1009,12 @@ function init() {
       for (let i = 0; i < cellCount; i++) {
         cells[i].classList.remove(playerClass)
       }
-      result.classList.remove('hidden')
       grid.classList.remove(glowClass)
       backgroundAudio.pause()
-      result.innerText = `Game Over! Your score: ${score}`
+      centerText.classList.remove(hiddenClass)
+      gameStarted = false
+      center.innerText = 'Game Over!'
+      center.classList.add('lose')
       audio.src = 'styles/sounds/animal-crossing-nh.mp3'
       if (soundOn === true) {
         audio.play()
@@ -1036,12 +1055,11 @@ function init() {
       // console.log('hide mode on')
       if (hideCount < 8) {
         grid.classList.add(glowClass)
-        hide.classList.remove(hiddenClass)
         moveGhostRandomly(ghostClass, ghostCurrentPosition)
       } else {
-        // clearInterval(hideTimer)
         ghostMode = 'chase mode'
-        hide.classList.add(hiddenClass)
+        centerText.classList.add(hiddenClass)
+        center.classList.remove('hide')
       }
     }
   }
@@ -1142,6 +1160,9 @@ function init() {
     grabLives[1].classList.remove(hiddenClass)
     event.target.classList.add(hiddenClass)
     start.classList.remove(hiddenClass)
+    center.classList.remove('hide')
+    center.classList.remove('win')
+    center.classList.remove('lose')
     gameStarted = false
     grid.classList.remove(glowClass)
     clearInterval(hideTimer)
@@ -1157,7 +1178,8 @@ function init() {
       }
     }
     grabLives[2].classList.add(hiddenClass)
-    result.classList.add('hidden')
+    // result.classList.add('hidden')
+    centerText.classList.add(hiddenClass)
 
   }
 
