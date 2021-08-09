@@ -4,7 +4,7 @@ Animal Crossing, PacMan Edition is a new take on the classic pacman arcade game.
 
 This was my first project as a General Assembly Software Engineering Immersive Student, and was built in one week. This was also my first project using JavaScript.
 
-![Animal-Crossing-Pacman](https://user-images.githubusercontent.com/73421779/128695912-5852aa4a-386e-40ee-b8b4-d7abe1047eb5.gif)
+![Document](https://user-images.githubusercontent.com/73421779/128707564-8e55106a-4833-43c3-9950-0f10cee8b534.gif)
 
 ## Brief
 
