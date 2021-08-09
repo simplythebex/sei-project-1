@@ -31,7 +31,7 @@ This was my first project as a General Assembly Software Engineering Immersive S
 ### Grid layout 
 I created the grid in a JavaScript function. The function created an array of divs within a flex-container. The divs could have classes attached, which were used to change the display. During development the index of each div could be displayed which resulted in a grid that was easy to change if required, and allowed me to keep track of attached classes easily.
 
-![Create Grid] (styles/images/readme-images/create-grid.png)
+![Create Grid] (http://styles/images/readme-images/create-grid.png)
 
 ### Display and movement of objects
 Using the indexes of the divs I could attach a class for each character or item I wanted to display.
