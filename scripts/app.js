@@ -777,14 +777,12 @@ function init() {
         }
       }
     } else if (waspYGoal < f) { // if ghost is below player
-      // console.log('ghost lower than player')
       if (isUpClear(waspCurrentPosition) === true && up !== waspPreviousPosition) { // check tile above is clear
         moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost up 
       } else { // if above is blocked
         if (waspXGoal > e) { // check if ghost is left of player
           // console.log('ghost left of player')
           if (isRightClear(waspCurrentPosition) === true && right !== waspPreviousPosition) { // check if tile to right is clear
-            // console.log(right)
             moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost right
           } else if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // if above and right is blocked, check left is clear
             moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost left
@@ -794,7 +792,6 @@ function init() {
             moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition)
           }
         } else if (waspXGoal < e) { // if ghost is right of player
-          // console.log('ghost right of player')
           if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // check tile to left is clear
             moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost left
           } else if (isDownClear(waspCurrentPosition) === true && down !== waspPreviousPosition && waspCurrentPosition !== 37 && waspCurrentPosition !== 39) { // if above and left is blocked, check if tile below is clear
@@ -805,9 +802,7 @@ function init() {
             moveCharacter('up', waspClass, waspPreviousPosition, waspCurrentPosition)
           }
         } else if (waspXGoal === e) { // if ghost and player are in line on the y-axis
-          // console.log('ghost on same vertical plane as player')
           if (isLeftClear(waspCurrentPosition) === true && left !== waspPreviousPosition) { // check left tile is clear
-            // console.log('move left')
             moveCharacter('left', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost left
           } else if (isRightClear(waspCurrentPosition) === true && right !== scorpianPreviousPosition) { // if above and left tile is blocked, check right is clear
             moveCharacter('right', waspClass, waspPreviousPosition, waspCurrentPosition) // move ghost right
@@ -908,7 +903,6 @@ function init() {
       center.classList.add('hide')
       center.innerText = 'Catch the ghosts while you can!'
       centerText.classList.remove(hiddenClass)
-      // hideCount = 0
       startHideTimer()
     }
   }
@@ -938,7 +932,6 @@ function init() {
   function touchGhost(playerCurrentPosition) {
     if (ghostMode === 'split mode' || ghostMode === 'chase mode') {
       audio.src = './styles/sounds/animal-crossing-shocked-sound-effect.mp3'
-      // console.log(audio)
       if (soundOn === true) {
         audio.play()
       }
@@ -1055,7 +1048,6 @@ function init() {
       scorpianXGoal = x
       scorpianYGoal = y
     } else if (ghostMode === 'hide mode') {
-      // console.log('hide mode on')
       if (hideCount < 8) {
         grid.classList.add(glowClass)
         moveGhostRandomly(ghostClass, ghostCurrentPosition)
