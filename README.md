@@ -49,19 +49,29 @@ To move the ghosts I needed to use logic to calculate the ghost position in rela
 ### Collision detection 
 I needed to ensure that the player and ghosts could not move through the borders or over the edge of the map. To do this I created functions to check whether each direction was clear and return a Boolean value. When the player or a ghost tried to move in a particular direction this function would be called. If true was returned, the player would be able to move. Otherwise the player would remain in their current position.
 
+![Player Movement](styles/images/readme-images/player-movement.png)
+
 The example above shows some of the logic for moving the player. When the down arrow is pressed, the game checks whether the border class is below, and moves the player down if the tile is empty.
 
 If a ghost tried to move in a blocked direction I used a series of if statements to find a new direction to move in, preventing the ghost from becoming stuck.
+
+![Ghost Movement](styles/images/readme-images/ghost-movement.png)
 
 
 ### Logic for if the player is caught
 When the player is caught by a ghost the player loses a life and all the characters return to the starting positions. To account for this I created a function to check whether the player class and a ghost class were on the same div at once. If this occurred a life would be subtracted. Another function would be called to check whether the life count had hit 0. If it had the game over message would display. Otherwise all players would be reset.
 
+![Caught By Ghost](styles/images/readme-images/caught-by-ghost.png)
+
 
 ### Changing the game mode when net is picked up
 In this version of pacman, when the player picks up a net I wanted the ghosts movement to change. Instead of chasing the player, they now move in random directions. To program this I created a ghostMode variable which would hold information about the mode that the ghosts were in. If a net was picked up, a function would be called which would change the ghostMode to 'hide', and start a timer. While the timer was running random numbers would be generated for each ghost. These corresponded to the direction in which the ghost would move.
 
+![Start Hide Timer](styles/images/readme-images/start-hide-mode-timer.png)
+
 The code above shows the programming of the ‘hide mode’ timer. After 8 seconds the timer changes the ghosts mode to split mode, causing them to separate before resuming chasing the player.
+
+![Hide Mode](styles/images/readme-images/hide-mode.png)
 
 During hide mode the ghosts are programmed to move randomly around the grid.
 
