@@ -1,5 +1,7 @@
 # Project 1: Animal Crossing, PacMan Edition
 
+## Overview
+
 Animal Crossing, PacMan Edition is a new take on the classic pacman arcade game. The player must play as Isabelle, collecting gold for Tom Nook while avoiding the dangerous creatures that roam the village. Bonus points can be accumulated by picking up nets and catching the creatures before time runs out. An additional life can also be found in the form of a fossil.
 
 This was my first project as a General Assembly Software Engineering Immersive Student, and was built in one week. This was also my first project using JavaScript.
@@ -83,11 +85,18 @@ While I programmed collision detection into the game, I encountered bugs around 
 Another bug I encountered was the ghosts getting trapped in certain areas of the grid. Occasionally a ghost will become stuck in a corner or in its pen. I found it challenging to predict when this would occur, and therefore need to test the game further to find a solution to this bug.
 
 
-## Wins and Challenges
+## Wins
 
 Programming the ghost movement was both a win and a challenge. I chose to program the movement of each ghost by writing a function that used a series of if statements that checked the ghost position in relation to the player, and whether the path was blocked. This was time consuming to write and test but I was happy overall with the paths that the ghosts would take. Because the ghost checks the player's position after each movement it means that the ghosts respond quickly to the new location, making the game more of a challenge.
 
-Programming the movement of the ghosts during the ‘hide mode’ was a larger challenge. Initially I wanted the ghosts to return to their pen, however after coding in this movement I realised that the ghosts would often get there too quickly, making the game less enjoyable. I also tried programming them to move to the corners of the grid for a few seconds, before moving to the pen, however if the ghost was already near the corner it would simply sit there while the timer was running. This also did not look very good. Eventually, as I was working to a tight deadline, I chose to program the ghosts to move randomly while ‘hide mode’ was on. This resulted in some strange movement, but allowed a better experience for the user than my other two solutions. 
+## Challenges
+
+Programming the movement of the ghosts during the ‘hide mode’ was my biggest challenge. Initially I wanted the ghosts to return to their pen, however after coding in this movement I realised that the ghosts would often get there too quickly, making the game less enjoyable. I also tried programming them to move to the corners of the grid for a few seconds, before moving to the pen, however if the ghost was already near the corner it would simply sit there while the timer was running. This also did not look very good. Eventually, as I was working to a tight deadline, I chose to program the ghosts to move randomly while ‘hide mode’ was on. This resulted in some strange movement, but allowed a better experience for the user than my other two solutions. 
+
+## Key Learnings
+- JavaScript fundamentals: This project really allowed me to get to grips with JS and to use logic to solve complicated problems.
+- Planning: As my first big project, I learnt to pseudocode and to manage my time to ensure my MVP wawa ready by the project deadline.
+- Independence: I learnt to break down more complicated problems and work independently to find a solution, testing my code as I worked.
 
 ## Future
 
