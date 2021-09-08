@@ -95,7 +95,7 @@ Programming the movement of the ghosts during the ‘hide mode’ was my biggest
 
 ## Key Learnings
 - JavaScript fundamentals: This project really allowed me to get to grips with JS and to use logic to solve complicated problems.
-- Planning: As my first big project, I learnt to pseudocode and to manage my time to ensure my MVP wawa ready by the project deadline.
+- Planning: As my first big project, I learnt to pseudocode and to manage my time to ensure my MVP was ready by the project deadline.
 - Independence: I learnt to break down more complicated problems and work independently to find a solution, testing my code as I worked.
 
 ## Future
